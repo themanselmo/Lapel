@@ -7,7 +7,7 @@ const MainHub = ({ user }) => {
 	const renderCards = user.collections.map((collection) => {
 		return <CollectionCard collection={collection} />;
 	});
-  
+
 	return (
 		<div>
 			<h1>Welcome {user.username}!</h1>
