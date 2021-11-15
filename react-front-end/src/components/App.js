@@ -5,7 +5,7 @@ import MainHub from './MainHub';
 
 function App() {
 	const [loggingIn, setLoggingIn] = useState(true);
-	const [loggedIn, setLoggedIn] = useState(false)
+	const [loggedIn, setLoggedIn] = useState(false);
 
 	const mockUser = {
 		username: 'John',
@@ -39,32 +39,33 @@ function App() {
 	};
 
 	const handleLogin = (formData) => {
-		// fetch to database of users checking to see if 
+		// fetch to database of users checking to see if
 		// user with given username exists, and if so check the passwords
-		if(formData.username === mockUser.username && formData.password === mockUser.password) {
-			setLoggedIn(true)
+		if (
+			formData.username === mockUser.username &&
+			formData.password === mockUser.password
+		) {
+			setLoggedIn(true);
+		} else {
+			alert('wrong username or password');
+			console.log(formData);
 		}
-		else {
-			alert("wrong username or password")
-			console.log(formData)
-		}
-	}
+	};
 
-	const loginForm = () => loggingIn ? 
-		<Login handleLoggingIn={handleLoggingIn} handleLogin={handleLogin}/> 
-		:
-		<SignUp handleLoggingIn={handleLoggingIn} />
-
+	const loginForm = () =>
+		loggingIn ? (
+			<Login
+				handleLoggingIn={handleLoggingIn}
+				handleLogin={handleLogin}
+			/>
+		) : (
+			<SignUp handleLoggingIn={handleLoggingIn} />
+		);
 
 	return (
 		<div className="App">
 			{loggedIn ? <MainHub user={mockUser}/> : loginForm()}
 			
-			{/* {loggingIn ? (
-				<Login handleLoggingIn={handleLoggingIn} handleLogin={handleLogin}/>
-			) : (
-				<SignUp handleLoggingIn={handleLoggingIn} />
-			)} */}
 		</div>
 	);
 }
