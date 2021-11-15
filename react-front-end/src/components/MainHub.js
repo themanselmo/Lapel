@@ -3,7 +3,7 @@ import CollectionCard from './CollectionCard';
 
 const MainHub = ({ user }) => {
 	console.log(user, user.collections);
-
+	
 	const renderCards = user.collections.map((collection) => {
 		return <CollectionCard collection={collection} />;
 	});
