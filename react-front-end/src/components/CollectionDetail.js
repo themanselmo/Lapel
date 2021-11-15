@@ -1,4 +1,4 @@
-const CollectionDetail = () => {
+const CollectionDetail = ({ collection }) => {
 	return <div></div>;
 };
 

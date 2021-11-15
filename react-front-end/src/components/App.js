@@ -58,7 +58,7 @@ function App() {
 
 	return (
 		<div className="App">
-			{loggedIn ? <MainHub /> : loginForm()}
+			{loggedIn ? <MainHub user={mockUser}/> : loginForm()}
 			
 			{/* {loggingIn ? (
 				<Login handleLoggingIn={handleLoggingIn} handleLogin={handleLogin}/>
