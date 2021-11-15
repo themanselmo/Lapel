@@ -1,6 +1,7 @@
-const CollectionCard = () => {
+
+const CollectionCard = ({ collection }) => {
 	// onclick, takes you to CollectionDetail
-	return <div></div>;
+	return <div>HELLO</div>;
 };
 
 export default CollectionCard;
