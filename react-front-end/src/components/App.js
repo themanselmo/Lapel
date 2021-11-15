@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Login from './Login';
 import SignUp from './SignUp';
 import MainHub from './MainHub';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
 	const [loggingIn, setLoggingIn] = useState(true);
@@ -64,8 +65,8 @@ function App() {
 
 	return (
 		<div className="App">
-			{loggedIn ? <MainHub user={mockUser}/> : loginForm()}
-			
+			{}
+			{loggedIn ? <MainHub user={mockUser} /> : loginForm()}
 		</div>
 	);
 }
