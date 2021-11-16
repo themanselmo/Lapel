@@ -33,37 +33,39 @@ const MainHub = () => {
 	}, [])
 
 	const handleDeletingCollections = () => {
-		setDeletingCollections(!deletingCollections)
-	}
+		setDeletingCollections(!deletingCollections);
+	};
 
 	const handleShowForm = () => {
-		setShowForm(!showForm)
-	}
+		setShowForm(!showForm);
+	};
 
 	const addNewCollection = (newCollection) => {
-		console.log(newCollection)
-		setCollections([...collections, newCollection])
-	}
+		console.log(newCollection);
+		setCollections([...collections, newCollection]);
+	};
 
 	const updateAfterDelete = (doomedCollection) => {
-		const updatedCollections = collections.filter(collection => collection.id !== doomedCollection.id)
-		setCollections(updatedCollections)
-	}
+		const updatedCollections = collections.filter(
+			(collection) => collection.id !== doomedCollection.id
+		);
+		setCollections(updatedCollections);
+	};
 
 	const deleteCollection = (doomedCollection) => {
 		fetch(`http://localhost:9292/collection/${doomedCollection.id}`, {
-			method: "DELETE",
-		})
-		.then(updateAfterDelete(doomedCollection))
-	}
-
+			method: 'DELETE',
+		}).then(updateAfterDelete(doomedCollection));
+	};
 
 	const renderCards = collections.map((c) => {
-		return <CollectionCard 
-		collection={c} 
-		deletingCollections={deletingCollections}
-		deleteCollection={deleteCollection}
-		/>;
+		return (
+			<CollectionCard
+				collection={c}
+				deletingCollections={deletingCollections}
+				deleteCollection={deleteCollection}
+			/>
+		);
 	});
 
 	const logOut = () => {

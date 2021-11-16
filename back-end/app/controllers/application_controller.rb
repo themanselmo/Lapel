@@ -37,6 +37,15 @@ class ApplicationController < Sinatra::Base
     item.to_json
   end
 
+  patch '/items/:id' do
+    item = Item.find(params[:id])
+    item.update(
+      item_name: params[:item_name],
+      item_value: params[:item_value]
+    )
+    item.to_json
+  end
+  
   post '/user/new' do
     User.find_by(username: params[:username]) == nil ? 
       User.create(username: params[:username], password: params[:password]).to_json(:include => {:collections => {:include => :items}})
