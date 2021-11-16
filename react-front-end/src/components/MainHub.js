@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import CollectionCard from './CollectionCard';
 import NewCollection from './NewCollection';
 
+
 const MainHub = ({ user }) => {
 	const [showForm, setShowForm] = useState(false)
 	const [deletingCollections, setDeletingCollections] = useState(false)

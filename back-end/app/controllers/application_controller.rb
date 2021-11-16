@@ -27,4 +27,14 @@ class ApplicationController < Sinatra::Base
   delete '/collection/:id' do
     Collection.find(params[:id]).destroy
   end
+
+  post '/items' do
+    Item.create(item_name: params[:name], item_class: params[:item_class], item_value: params[:item_value], collection_id: params[:collection_id]).to_json
+  end
+
+  delete '/items/:id' do
+    item = Item.find(params[:id])
+    item.destroy
+    item.to_json
+  end
 end

@@ -5,10 +5,13 @@ import Header from './Header';
 
 // import { DeleteIcon } from "@mui/icons-material/Delete";
 import ItemCard from './ItemCard';
+import NewItem from './NewItem';
 
 const CollectionDetail = () => {
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [collection, setCollection] = useState({});
+	const [manage, setManage] = useState(false);
+	const [items, setItems] = useState([]);
 	// this will be a spinner waiting for the useEffect fetch
 
 	// As this component renders for each collections, there will be
@@ -34,29 +37,57 @@ const CollectionDetail = () => {
 			.then((data) => {
 				console.log(data);
 				setCollection(data);
+				setItems(data.items);
 				setIsLoaded(true);
 			});
 	}, []);
 
+	const handleManage = (e) => setManage(!manage);
+
+	const deleteItem = (doomedItem) => {
+		console.log(doomedItem);
+		fetch(`http://localhost:9292/items/${doomedItem.id}`, {
+			method: 'DELETE',
+		}).then((r) => r.json());
+		const newArr = items.filter((el) => el.id !== doomedItem.id);
+		setItems(newArr);
+	};
+	const addItemToItems = (freshItem) => {
+		setItems([...items, freshItem]);
+	};
 	if (!isLoaded) {
 		return <CircularProgress />;
 	} else {
 		return (
 			<div className="collection-detail">
 				<Button>Return To Hub</Button>
-				<Button>Manage Collection</Button>
+				<Button onClick={handleManage}>Manage Collection</Button>
 				<Button color="error">Delete Collection</Button>
 
 				<div className="collection-overview">
 					<h3>Overview</h3>
+					<h2>{collection.collection_name}</h2>
+					<div>
+						{manage ? (
+							<NewItem
+								collection={collection}
+								addItemToItems={addItemToItems}
+							/>
+						) : null}
+					</div>
 					<p>Total Items: {collection.items.length}</p>
 					<p>Total Value: total value</p>
 				</div>
 
 				<div className="collection-items">
-					{collection.items.map((item) => {
-						console.log(item);
-						return <ItemCard item={item} />;
+					{items.map((item) => {
+						return (
+							<ItemCard
+								item={item}
+								manage={manage}
+								deleteItem={deleteItem}
+							/>
+						);
 					})}
 				</div>
 			</div>
