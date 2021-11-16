@@ -23,4 +23,14 @@ class ApplicationController < Sinatra::Base
   post '/collections' do
     Collection.create(collection_name: params[:name], user_id: params[:user_id]).to_json(:include => :items)
   end
+
+  post '/items' do
+    Item.create(item_name: params[:name], item_class: params[:item_class], item_value: params[:item_value], collection_id: params[:collection_id]).to_json
+  end
+
+  delete '/items/:id' do
+    item = Item.find(params[:id])
+    item.destroy
+    item.to_json
+  end
 end
