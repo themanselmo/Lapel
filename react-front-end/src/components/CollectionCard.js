@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, Card, CardContent, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const CollectionCard = ({ collection }) => {
@@ -6,19 +6,26 @@ const CollectionCard = ({ collection }) => {
 
 	const totalValue = () => {
 		let sum = 0;
-		collection.items.forEach((item) => (sum += item.price));
+		collection.items.forEach((item) => (sum += item.item_value));
 		return sum;
 	};
-
+	
 	return (
-		<div className="collection-card">
-			<h3>{collection.name}</h3>
-			<p>Total Items: {collection.items.length}</p>
-			<p>Total Value: ${totalValue()}</p>
-			<Link to={collection.name}>
-				<Button>View More</Button>
+		<Card variant="outlined" sx={{ maxWidth: "250px", minWidth: "200px" }}>
+			<CardContent>
+				<Typography variant="h5"> {collection.collection_name} </Typography>
+				<Typography sx={{ mb: 1.5 }} color="text.secondary">
+					Total Items: {collection.items.length}
+				</Typography>
+				<Typography sx={{ mb: 1.5 }} color="text.secondary">
+					Total Value: ${totalValue()}
+				</Typography>
+			</CardContent>
+			<Link to={collection.collection_name}>
+				<Button sx={{ textAlign: "center"}}>View More</Button>
 			</Link>
-		</div>
+			
+		</Card>
 	);
 };
 

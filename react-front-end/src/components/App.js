@@ -5,54 +5,75 @@ import MainHub from './MainHub';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
+	
+	// state variables
 	const [loggingIn, setLoggingIn] = useState(true);
 	const [loggedIn, setLoggedIn] = useState(false);
+	const [currentUser, setCurrentUser] = useState({})
 
-	const mockUser = {
-		username: 'John',
-		password: '1234',
-		collections: [
-			{
-				name: 'Clothes',
-				items: [
-					{
-						itemName: 'Shirt',
-						itemClass: 'Clothes',
-						price: 10,
-					},
-					{
-						itemName: 'Shoes',
-						itemClass: 'Clothes',
-						price: 80,
-					},
-					{
-						itemName: 'Jacket',
-						itemClass: 'Clothes',
-						price: 15,
-					},
-				],
-			},
-		],
-	};
+	// const mockUser = {
+	// 	username: 'John',
+	// 	password: '1234',
+	// 	collections: [
+	// 		{
+	// 			name: 'Clothes',
+	// 			items: [
+	// 				{
+	// 					itemName: 'Shirt',
+	// 					itemClass: 'Clothes',
+	// 					price: 10,
+	// 				},
+	// 				{
+	// 					itemName: 'Shoes',
+	// 					itemClass: 'Clothes',
+	// 					price: 80,
+	// 				},
+	// 				{
+	// 					itemName: 'Jacket',
+	// 					itemClass: 'Clothes',
+	// 					price: 15,
+	// 				},
+	// 			],
+	// 		},
+	// 	],
+	// };
 
+	 
 	const handleLoggingIn = () => {
+		// handles whether a user is logging in or signing up
 		setLoggingIn(!loggingIn);
 	};
-
+	
+	
 	const handleLogin = (formData) => {
 		// fetch to database of users checking to see if
 		// user with given username exists, and if so check the passwords
-		if (
-			formData.username === mockUser.username &&
-			formData.password === mockUser.password
-		) {
-			setLoggedIn(true);
-		} else {
-			alert('wrong username or password');
-			console.log(formData);
-		}
+		fetch(`http://localhost:9292/user/${formData.username}`)
+		.then(res => res.json())
+		.then(data => checkLogin(data, formData))
+
 	};
 
+	// takes the data passed from the login form and fetches to the 
+	// database to see if an account with such username exits
+	// if it exists, it checks the username and password and if it passes
+	// sets the user to logged in and the currentuser state
+	const checkLogin = (data, formData) => {
+		if(data.username === formData.username && data.password === formData.password) {
+			
+			fetch(`http://localhost:9292/user/collections/${data.username}`)
+			.then(res => res.json())
+			.then(data => {
+				setCurrentUser(data)
+				setLoggedIn(true)
+				console.log(data)
+			})
+		} else {
+			alert('Wrong username or password.')
+		}
+	}
+
+	// conditionally rendered state controlled component 
 	const loginForm = () =>
 		loggingIn ? (
 			<Login
@@ -65,8 +86,7 @@ function App() {
 
 	return (
 		<div className="App">
-			{}
-			{loggedIn ? <MainHub user={mockUser} /> : loginForm()}
+			{loggedIn ? <MainHub user={currentUser} /> : loginForm()}
 		</div>
 	);
 }

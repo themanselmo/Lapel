@@ -6,4 +6,13 @@ class ApplicationController < Sinatra::Base
     { message: "Good luck with your project!" }.to_json
   end
 
+  get '/user/:username' do
+    user = User.find_by(username: params[:username])
+    user.to_json
+  end
+
+  get '/user/collections/:username' do
+    User.find_by(username: params[:username]).to_json(:include => {:collections => {:include => :items}})
+  
+  end
 end
