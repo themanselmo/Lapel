@@ -1,6 +1,7 @@
 import { Button, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Header from './Header';
 
 // import { DeleteIcon } from "@mui/icons-material/Delete";
 import ItemCard from './ItemCard';

@@ -5,11 +5,10 @@ import MainHub from './MainHub';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
-	
 	// state variables
 	const [loggingIn, setLoggingIn] = useState(true);
 	const [loggedIn, setLoggedIn] = useState(false);
-	const [currentUser, setCurrentUser] = useState({})
+	const [currentUser, setCurrentUser] = useState({});
 
 	// const mockUser = {
 	// 	username: 'John',
@@ -38,42 +37,41 @@ function App() {
 	// 	],
 	// };
 
-	 
 	const handleLoggingIn = () => {
 		// handles whether a user is logging in or signing up
 		setLoggingIn(!loggingIn);
 	};
-	
-	
+
 	const handleLogin = (formData) => {
 		// fetch to database of users checking to see if
 		// user with given username exists, and if so check the passwords
 		fetch(`http://localhost:9292/user/${formData.username}`)
-		.then(res => res.json())
-		.then(data => checkLogin(data, formData))
-
+			.then((res) => res.json())
+			.then((data) => checkLogin(data, formData));
 	};
 
-	// takes the data passed from the login form and fetches to the 
+	// takes the data passed from the login form and fetches to the
 	// database to see if an account with such username exits
 	// if it exists, it checks the username and password and if it passes
 	// sets the user to logged in and the currentuser state
 	const checkLogin = (data, formData) => {
-		if(data.username === formData.username && data.password === formData.password) {
-			
+		if (
+			data.username === formData.username &&
+			data.password === formData.password
+		) {
 			fetch(`http://localhost:9292/user/collections/${data.username}`)
-			.then(res => res.json())
-			.then(data => {
-				setCurrentUser(data)
-				setLoggedIn(true)
-				console.log(data)
-			})
+				.then((res) => res.json())
+				.then((data) => {
+					setCurrentUser(data);
+					setLoggedIn(true);
+					console.log(data);
+				});
 		} else {
-			alert('Wrong username or password.')
+			alert('Wrong username or password.');
 		}
-	}
+	};
 
-	// conditionally rendered state controlled component 
+	// conditionally rendered state controlled component
 	const loginForm = () =>
 		loggingIn ? (
 			<Login

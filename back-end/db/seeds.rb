@@ -9,6 +9,8 @@ puts "Creating collections..."
 clothes = Collection.create(collection_name: "Clothes", user_id: max.id)
 camera_gear = Collection.create(collection_name: "Camera Gear", user_id: max.id)
 
+bike_stuff = Collection.create(collection_name: "Bike Gear", user_id: sam.id)
+
 puts "Creating items..."
 i1 = Item.create(
     item_name: "Shirt", 
@@ -45,5 +47,26 @@ i6 = Item.create(
     item_class: "Electronics", 
     item_value: 900.69, 
     collection_id: camera_gear.id
+)
+
+i7 = Item.create(
+    item_name: "Fuji Frame", 
+    item_class: "Bike Stuff", 
+    item_value: 900.69, 
+    collection_id: bike_stuff.id
+)
+
+i8 = Item.create(
+    item_name: "WTB Wheelset", 
+    item_class: "Bike Stuff", 
+    item_value: 500.69, 
+    collection_id: bike_stuff.id
+)
+
+i9 = Item.create(
+    item_name: "Brooks Saddle", 
+    item_class: "Bike Stuff", 
+    item_value: 100.69, 
+    collection_id: bike_stuff.id
 )
 puts "✅ Done seeding!"
