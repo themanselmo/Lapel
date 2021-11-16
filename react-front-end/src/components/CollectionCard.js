@@ -15,7 +15,7 @@ const CollectionCard = ({ collection }) => {
 			<h3>{collection.name}</h3>
 			<p>Total Items: {collection.items.length}</p>
 			<p>Total Value: ${totalValue()}</p>
-			<Link to={collection.name}>
+			<Link to={`/collections/${collection.id}`}>
 				<Button>View More</Button>
 			</Link>
 		</div>

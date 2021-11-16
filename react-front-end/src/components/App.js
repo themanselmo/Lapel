@@ -13,6 +13,7 @@ function App() {
 		password: '1234',
 		collections: [
 			{
+				id: 1,
 				name: 'Clothes',
 				items: [
 					{
