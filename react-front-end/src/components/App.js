@@ -2,15 +2,15 @@ import { useState } from 'react';
 import Login from './Login';
 import SignUp from './SignUp';
 import MainHub from './MainHub';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 import UserProfile from './UserProfile';
 
 function App() {
 	// state variables
 	const [loggingIn, setLoggingIn] = useState(true);
 	const [loggedIn, setLoggedIn] = useState(false);
-	const [currentUser, setCurrentUser] = useState({});
-
+	// const [currentUser, setCurrentUser] = useState({});
+	const navigate = useNavigate()
 	// const mockUser = {
 	// 	username: 'John',
 	// 	password: '1234',
@@ -56,13 +56,12 @@ function App() {
 				data === "User Exists" ? 
 				alert("Username is taken") 
 				:
-				setCurrentUser(data)
+				// setCurrentUser(data)
 				UserProfile.setName(data.username)
 				setLoggedIn(true)
 			})
 			
 	}
-
 
 	const handleLoggingIn = () => {
 		// handles whether a user is logging in or signing up
@@ -79,11 +78,8 @@ function App() {
 					alert("Username or password is wrong.")
 				} else {
 					checkLogin(data, formData)
-
-				}
-				
-			});
-			
+				}	
+		});
 	};
 
 	// takes the data passed from the login form and fetches to the
@@ -95,19 +91,14 @@ function App() {
 			data.username === formData.username &&
 			data.password === formData.password
 		) {
-			fetch(`http://localhost:9292/user/collections/${data.username}`)
-				.then((res) => res.json())
-				.then((data) => {
-					setCurrentUser(data);
 					UserProfile.setName(data.username)
-
 					setLoggedIn(true);
-					console.log(data);
-				});
+					navigate('/home')
 		} else {
 			alert('Wrong username or password.');
 		}
 	};
+
 
 	// conditionally rendered state controlled component
 	const loginForm = () =>
@@ -123,11 +114,9 @@ function App() {
 			/>
 		);
 
-		console.log(currentUser)
-		console.log("UserProfile: ", UserProfile.getName())
 	return (
 		<div className="App">
-			{loggedIn ? <MainHub user={currentUser} /> : loginForm()}
+			{loginForm()}
 		</div>
 	);
 }

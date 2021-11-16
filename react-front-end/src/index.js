@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './components/App';
 import CollectionDetail from './components/CollectionDetail';
 import Header from './components/Header';
+import MainHub from './components/MainHub';
 
 ReactDOM.render(
 	<BrowserRouter>
@@ -21,7 +22,10 @@ ReactDOM.render(
 
 				element={<CollectionDetail />}
 			/>	
-			
+			<Route 
+				path="/home"
+				element={<MainHub />}
+			/>
 			{/* Use the router to render the CollectionDetail coming from a button press
       in the CollectionCard componenet */}
 			<Route path="/" element={<App />}></Route>

@@ -1,6 +1,6 @@
 import { Button, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Header from './Header';
 
 // import { DeleteIcon } from "@mui/icons-material/Delete";
@@ -12,6 +12,8 @@ const CollectionDetail = () => {
 	const [collection, setCollection] = useState({});
 	const [manage, setManage] = useState(false);
 	const [items, setItems] = useState([]);
+	const navigate = useNavigate();
+
 	// this will be a spinner waiting for the useEffect fetch
 
 	// As this component renders for each collections, there will be
@@ -44,6 +46,10 @@ const CollectionDetail = () => {
 
 	const handleManage = (e) => setManage(!manage);
 
+	const goHome = () => {
+		navigate('/home')
+	}
+
 	const deleteItem = (doomedItem) => {
 		console.log(doomedItem);
 		fetch(`http://localhost:9292/items/${doomedItem.id}`, {
@@ -60,7 +66,7 @@ const CollectionDetail = () => {
 	} else {
 		return (
 			<div className="collection-detail" style={{ textAlign: "center"}}>
-				<Button>Return To Hub</Button>
+				<Button onClick={goHome}>Return To Hub</Button>
 				<Button onClick={handleManage}>Manage Collection</Button>
 				<Button color="error">Delete Collection</Button>
 
