@@ -1,7 +1,7 @@
 import { Button, Card, CardContent, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-const CollectionCard = ({ collection }) => {
+const CollectionCard = ({ collection, deletingCollections, deleteCollection }) => {
 	// onclick, takes you to CollectionDetail
 
 	const totalValue = () => {
@@ -27,6 +27,7 @@ const CollectionCard = ({ collection }) => {
 			<Link to={`/collections/${collection.id}`}>
 				<Button sx={{ textAlign: 'center' }}>View More</Button>
 			</Link>
+			{ deletingCollections ? <Button onClick={() => deleteCollection(collection)}>Delete</Button> : null }
 		</Card>
 	);
 };

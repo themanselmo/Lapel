@@ -5,16 +5,18 @@ import NewCollection from './NewCollection';
 
 const MainHub = ({ user }) => {
 	const [showForm, setShowForm] = useState(false)
-	
+	const [deletingCollections, setDeletingCollections] = useState(false)
 	const [collections, setCollections] = useState([])
 	
 	useEffect(() => {
 		setCollections(user.collections)
 	}, [])
 
-	const renderCards = collections.map((c) => {
-		return <CollectionCard collection={c}/>;
-	});
+	
+
+	const handleDeletingCollections = () => {
+		setDeletingCollections(!deletingCollections)
+	}
 
 	const handleShowForm = () => {
 		setShowForm(!showForm)
@@ -25,13 +27,33 @@ const MainHub = ({ user }) => {
 		setCollections([...collections, newCollection])
 	}
 
+	const updateAfterDelete = (doomedCollection) => {
+		const updatedCollections = collections.filter(collection => collection.id !== doomedCollection.id)
+		setCollections(updatedCollections)
+	}
+
+	const deleteCollection = (doomedCollection) => {
+		fetch(`http://localhost:9292/collection/${doomedCollection.id}`, {
+			method: "DELETE",
+		})
+		.then(updateAfterDelete(doomedCollection))
+	}
+
+
+	const renderCards = collections.map((c) => {
+		return <CollectionCard 
+		collection={c} 
+		deletingCollections={deletingCollections}
+		deleteCollection={deleteCollection}
+		/>;
+	});
 	console.log("rendering main hub")
 	return (
 		<div id="Main-Hub">
 			<div style={{ textAlign: "center"}}>
 				<h1>Welcome {user.username}!</h1>
 				<Button onClick={handleShowForm}>Create Collection</Button>
-				<Button>Delete Collection</Button>
+				<Button onClick={handleDeletingCollections}>Delete Collection</Button>
 			</div>
 
 			<div>
