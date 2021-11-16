@@ -27,7 +27,7 @@ const CollectionCard = ({ collection, deletingCollections, deleteCollection }) =
 			<Link to={`/collections/${collection.id}`}>
 				<Button sx={{ textAlign: 'center' }}>View More</Button>
 			</Link>
-			{ deletingCollections ? <Button onClick={() => deleteCollection(collection)}>Delete</Button> : null }
+			{ deletingCollections ? <Button size="small" variant="contained" color="error" onClick={() => deleteCollection(collection)}>Delete</Button> : null }
 		</Card>
 	);
 };

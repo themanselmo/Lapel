@@ -27,4 +27,11 @@ class ApplicationController < Sinatra::Base
   delete '/collection/:id' do
     Collection.find(params[:id]).destroy
   end
+
+  post '/user/new' do
+    binding.pry
+    User.find_by(username: params[:username]) == nil ? 
+      User.create(username: params[:username], password: params[:password]).to_json(:include => {:collections => {:include => :items}})
+       : "User Exists".to_json
+  end
 end

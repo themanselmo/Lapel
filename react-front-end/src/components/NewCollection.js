@@ -27,7 +27,7 @@ const NewCollection = ({ addNewCollection, user }) => {
     }
 
     return (
-        <div>
+        <div style={{ textAlign: "center"}}>
             <h3>Add a new collection:</h3>
             <form onSubmit={handleSubmit}>
                 <label name="name">Name:</label>
