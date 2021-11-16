@@ -19,4 +19,8 @@ class ApplicationController < Sinatra::Base
   get '/collections/:id' do
     Collection.find_by(id: params[:id]).to_json(:include => :items)
   end
+
+  post '/collections' do
+    Collection.create(collection_name: params[:name], user_id: params[:user_id]).to_json(:include => :items)
+  end
 end

@@ -82,6 +82,7 @@ function App() {
 			<SignUp handleLoggingIn={handleLoggingIn} />
 		);
 
+		console.log(currentUser)
 	return (
 		<div className="App">
 			{loggedIn ? <MainHub user={currentUser} /> : loginForm()}
