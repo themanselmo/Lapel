@@ -1,12 +1,11 @@
-
 const ItemCard = ({ item }) => {
+	return (
+		<div className="item-card">
+			<p>{item.item_name}</p>
+			<p>{item.item_class}</p>
+			<p>{item.item_value}</p>
+		</div>
+	);
+};
 
-    return <div className="item-card">
-        <p>{item.itemName}</p>
-        <p>{item.itemClass}</p>
-        <p>{item.price}</p>
-    </div>
-
-}
-
-export default ItemCard
+export default ItemCard;

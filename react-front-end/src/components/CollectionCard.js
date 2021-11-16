@@ -9,11 +9,14 @@ const CollectionCard = ({ collection }) => {
 		collection.items.forEach((item) => (sum += item.item_value));
 		return sum;
 	};
-	
+
 	return (
-		<Card variant="outlined" sx={{ maxWidth: "250px", minWidth: "200px" }}>
+		<Card variant="outlined" sx={{ maxWidth: '250px', minWidth: '200px' }}>
 			<CardContent>
-				<Typography variant="h5"> {collection.collection_name} </Typography>
+				<Typography variant="h5">
+					{' '}
+					{collection.collection_name}{' '}
+				</Typography>
 				<Typography sx={{ mb: 1.5 }} color="text.secondary">
 					Total Items: {collection.items.length}
 				</Typography>
@@ -21,10 +24,9 @@ const CollectionCard = ({ collection }) => {
 					Total Value: ${totalValue()}
 				</Typography>
 			</CardContent>
-			<Link to={collection.collection_name}>
-				<Button sx={{ textAlign: "center"}}>View More</Button>
+			<Link to={`/collections/${collection.id}`}>
+				<Button sx={{ textAlign: 'center' }}>View More</Button>
 			</Link>
-			
 		</Card>
 	);
 };

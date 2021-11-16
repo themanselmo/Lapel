@@ -15,4 +15,8 @@ class ApplicationController < Sinatra::Base
     User.find_by(username: params[:username]).to_json(:include => {:collections => {:include => :items}})
   
   end
+
+  get '/collections/:id' do
+    Collection.find_by(id: params[:id]).to_json(:include => :items)
+  end
 end

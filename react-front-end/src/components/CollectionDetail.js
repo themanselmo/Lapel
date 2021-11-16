@@ -5,15 +5,15 @@ import { useParams } from 'react-router-dom';
 // import { DeleteIcon } from "@mui/icons-material/Delete";
 import ItemCard from './ItemCard';
 
-const CollectionDetail = ({ collection }) => {
+const CollectionDetail = () => {
 	const [isLoaded, setIsLoaded] = useState(false);
+	const [collection, setCollection] = useState({});
 	// this will be a spinner waiting for the useEffect fetch
 
 	// As this component renders for each collections, there will be
 	// a slug at the end of the URL that we will be grabbing with the
 	// useParams hook below.
 
-	const url = '';
 	const { collectionId } = useParams();
 	console.log({ collectionId });
 
@@ -24,14 +24,18 @@ const CollectionDetail = ({ collection }) => {
 
 	// make REST request with useEffect to fetch the
 
-	// useEffect(() => {
-	// 	fetch(url + `/collections/${collectionId}`)
-	// 		.then((r) => r.json)
-	// 		.then((collection) => {
-	// 			setIsLoaded(true);
-	// 			console.log(collection);
-	// 		});
-	// }, []);
+	console.log('b4 fetch');
+
+	useEffect(() => {
+		console.log('in fetch');
+		fetch(`http://localhost:9292/collections/${collectionId}`)
+			.then((r) => r.json())
+			.then((data) => {
+				console.log(data);
+				setCollection(data);
+				setIsLoaded(true);
+			});
+	}, []);
 
 	if (!isLoaded) {
 		return <CircularProgress />;
@@ -49,9 +53,10 @@ const CollectionDetail = ({ collection }) => {
 				</div>
 
 				<div className="collection-items">
-					{collection.items.map((item) => (
-						<ItemCard item={item} />
-					))}
+					{collection.items.map((item) => {
+						console.log(item);
+						return <ItemCard item={item} />;
+					})}
 				</div>
 			</div>
 		);
