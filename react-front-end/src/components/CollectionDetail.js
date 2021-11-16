@@ -59,7 +59,7 @@ const CollectionDetail = () => {
 		return <CircularProgress />;
 	} else {
 		return (
-			<div className="collection-detail">
+			<div className="collection-detail" style={{ textAlign: "center"}}>
 				<Button>Return To Hub</Button>
 				<Button onClick={handleManage}>Manage Collection</Button>
 				<Button color="error">Delete Collection</Button>
@@ -79,7 +79,11 @@ const CollectionDetail = () => {
 					<p>Total Value: total value</p>
 				</div>
 
-				<div className="collection-items">
+				<div className="collection-items" style={{ 
+					alignItems: "center", 
+					display: "flex",
+					justifyContent: "space-evenly"
+					}}>
 					{items.map((item) => {
 						return (
 							<ItemCard
@@ -88,10 +92,10 @@ const CollectionDetail = () => {
 								deleteItem={deleteItem}
 							/>
 						);
-					})}
+						})}
 				</div>
 			</div>
-		);
+			);
 	}
 };
 

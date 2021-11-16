@@ -20,7 +20,8 @@ ReactDOM.render(
 				// 20, we will go to "/collections/20"
 
 				element={<CollectionDetail />}
-			/>
+			/>	
+			
 			{/* Use the router to render the CollectionDetail coming from a button press
       in the CollectionCard componenet */}
 			<Route path="/" element={<App />}></Route>

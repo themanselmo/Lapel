@@ -1,14 +1,36 @@
 import { TextField, Button } from '@mui/material';
+import { useState } from 'react';
 
-const SignUp = ({ handleLoggingIn }) => {
+const SignUp = ({ handleLoggingIn, handleSignUp }) => {
+	const [formData, setFormData] = useState({
+		username: '',
+		password: '',
+	});
+
+	const handleChange = (e) => {
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+	};
+
 	return (
-		<div>
+		<div style={{ textAlign: "center" }}>
 			<h3>Welcome!</h3>
 			<p>Hello, please sign up:</p>
-			<TextField></TextField>
-			<TextField></TextField>
+			<TextField
+				name="username"
+				onChange={handleChange}
+				placeholder={'username'}
+				size="small"
+				sx={{ maxWidth: "200px"}}
+			></TextField>
+			<TextField
+				name="password"
+				onChange={handleChange}
+				placeholder={'password'}
+				size="small"
+				sx={{ maxWidth: "200px"}}
+			></TextField>
 
-			<Button>Submit</Button>
+			<Button onClick={() => handleSignUp(formData)}>Submit</Button>
 			<Button onClick={handleLoggingIn}>Log In</Button>
 		</div>
 	);
