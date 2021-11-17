@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TextField, Button } from '@mui/material';
+import { Button } from '@mui/material';
 
 const NewItem = ({ collection, addItemToItems }) => {
 	const [itemName, setItemName] = useState('');

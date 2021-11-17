@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Login from './Login';
 import SignUp from './SignUp';
-import MainHub from './MainHub';
 import { useNavigate } from 'react-router-dom'
 import UserProfile from './UserProfile';
 
@@ -121,6 +120,7 @@ function App() {
 
 	return (
 		<div className="App">
+			{loggedIn ? null : null}
 			{loginForm()}
 		</div>
 	);

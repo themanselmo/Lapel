@@ -80,6 +80,7 @@ const MainHub = () => {
 	const renderCards = collections.map((c) => {
 		return (
 			<CollectionCard
+				key={c.id}
 				collection={c}
 				deletingCollections={deletingCollections}
 				deleteCollection={deleteCollection}

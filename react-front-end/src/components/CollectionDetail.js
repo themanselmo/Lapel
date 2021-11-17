@@ -3,7 +3,6 @@ import { Button, CircularProgress, Snackbar, Grow } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Header from './Header';
 
 // import { DeleteIcon } from "@mui/icons-material/Delete";
 import ItemCard from './ItemCard';
@@ -43,7 +42,7 @@ const CollectionDetail = () => {
 				setItems(data.items);
 				setIsLoaded(true);
 			});
-	}, []);
+	}, [collectionId]);
 
 	const handleManage = (e) => setManage(!manage);
 

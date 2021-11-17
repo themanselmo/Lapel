@@ -1,9 +1,6 @@
 import { Card, CardContent, Typography } from '@mui/material';
 
-import { useState } from 'react';
-
 const FeedItemCard = ({ item }) => {
-	const [renderedItem, setRenderedItem] = useState(item);
 
 	return (
 
@@ -11,10 +8,10 @@ const FeedItemCard = ({ item }) => {
 				<CardContent>
 				<Typography variant="h5">
 					{' '}
-					{renderedItem.item_name}{' '}
+					{item.item_name}{' '}
 				</Typography>
 				<Typography sx={{ mb: 1.5 }} color="text.secondary">
-					${renderedItem.item_value}
+					${item.item_value}
 				</Typography>
 			</CardContent>
 		</Card>

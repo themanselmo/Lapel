@@ -1,7 +1,6 @@
 import { Button, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Header from './Header';
 
 // import { DeleteIcon } from "@mui/icons-material/Delete";
 import FeedItemCard from './FeedItemCard';
@@ -36,28 +35,11 @@ const FeedCollectionDetail = () => {
 				setItems(data.items);
 				setIsLoaded(true);
 			});
-	}, []);
+	}, [collectionId]);
 
 
 	const goHome = () => {
 		navigate('/home');
-	};
-
-	const updateItems = (doomedItem) => {
-		// const updatedItems = items.filter(
-		// 	(el) => el.id !== doomedItem.id
-		// );
-		// console.log(updatedItems)
-		setItems((prevItems) => {
-			const updatedItems = prevItems.filter(
-				(el) => el.id !== doomedItem.id
-			);
-			return updatedItems
-		});
-	}
-
-	const addItemToItems = (freshItem) => {
-		setItems([...items, freshItem]);
 	};
 
 	if (!isLoaded) {
