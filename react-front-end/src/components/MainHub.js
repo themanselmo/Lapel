@@ -1,13 +1,14 @@
 import { Button, Snackbar, Grow } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import CollectionCard from './CollectionCard';
 import Nav from './Nav';
 import NewCollection from './NewCollection';
 
 
 const MainHub = () => {
+
+	// state variables
 	const [showForm, setShowForm] = useState(false)
 	const [deletingCollections, setDeletingCollections] = useState(false)
 	const [collections, setCollections] = useState([])
@@ -21,7 +22,6 @@ const MainHub = () => {
 	const [transition, setTransition] = useState(Grow);
 	const [alertMessage, setAlertMessage] = useState('')
 
-	const navigate = useNavigate()
 
 	// fetch user data on load
 	useEffect(() => {
@@ -34,14 +34,17 @@ const MainHub = () => {
 				});
 	}, [])
 
+	// handles toggle state for deleting collections
 	const handleDeletingCollections = () => {
 		setDeletingCollections(!deletingCollections);
 	};
 
+	// handles toggle state for showing the form to add a collection
 	const handleShowForm = () => {
 		setShowForm(!showForm);
 	};
 
+	// adds a new collection to the collections state and displays a notification
 	const addNewCollection = (newCollection) => {
 		console.log(newCollection);
 		setCollections([...collections, newCollection]);
@@ -49,6 +52,7 @@ const MainHub = () => {
 		handleClick(Grow)
 	};
 
+	// updates the collections state after a collection has been deleted
 	const updateAfterDelete = (doomedCollection) => {
 		const updatedCollections = collections.filter(
 			(collection) => collection.id !== doomedCollection.id
@@ -58,6 +62,7 @@ const MainHub = () => {
 		handleClick(Grow)
 	};
 
+	// deletes a collection and calls function to update state
 	const deleteCollection = (doomedCollection) => {
 		fetch(`http://localhost:9292/collection/${doomedCollection.id}`, {
 			method: 'DELETE',
@@ -65,11 +70,13 @@ const MainHub = () => {
 		updateAfterDelete(doomedCollection)
 	};
 
+	// handles toggle state for displaying components to add / delete collections
 	const manageCollection = () => {
 		handleShowForm()
 		handleDeletingCollections()
 	}
 
+	// renders collection cards dynamically according to collections state
 	const renderCards = collections.map((c) => {
 		return (
 			<CollectionCard
@@ -80,10 +87,12 @@ const MainHub = () => {
 		);
 	});
 
+	// handles toggle state for popup notification
 	const handleClose = () => {
 		setOpen(false)
 	};
 
+	// handles toggle state for popup notification
 	const handleClick = (transition) => {
 		setOpen(true)
 		setTransition(transition)
