@@ -16,7 +16,10 @@ const FeedCard = ({ collection }) => {
     })
 
     return (
-        <Card variant="outlined" sx={{ maxWidth: '250px', minWidth: '200px' }}>
+        <Card variant="outlined" sx={{ 
+            maxWidth: '250px', minWidth: '250px', margin:'20px',
+            onHover: { backgroundColor: 'red'}}}
+        >
 			<CardContent>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
 					Collection Owner: {cardOwner}

@@ -28,7 +28,6 @@ const ItemCard = ({ item, manage, deleteItem }) => {
 		const value = e.target.value;
 		setItemForm({ ...itemForm, [name]: value });
 	};
-	console.log(itemForm);
 
 	const handleUpdate = (e) => {
 		setEdit(!edit);
@@ -47,7 +46,6 @@ const ItemCard = ({ item, manage, deleteItem }) => {
 			.then((patchedItem) => setRenderedItem(patchedItem));
 	};
 
-	console.log(renderedItem);
 	return (
 
 		<Card variant="outlined" sx={{ maxWidth: '250px', minWidth: '200px' }}>
@@ -115,78 +113,7 @@ const ItemCard = ({ item, manage, deleteItem }) => {
 				</div>
 			) : null}
 		</Card>
-
-		// <div
-		// 	className="item-card"
-		// 	style={{
-		// 		borderRadius: '25px 25px 25px 25px',
-		// 		borderStyle: 'outset',
-		// 		borderColor: 'black',
-		// 		maxWidth: '250px',
-		// 		minWidth: '250px',
-		// 		textAlign: 'center',
-		// 	}}
-		// >
-		// 	{edit ? (
-		// 		<form>
-		// 			<label>Item Name:</label>
-		// 			<input
-		// 				onChange={handleForm}
-		// 				name="item_name"
-		// 				type="text"
-		// 				value={itemForm.item_name}
-		// 				defaultValue={renderedItem.item_name}
-		// 			></input>{' '}
-		// 			<br></br>
-		// 			<label>Price:</label>
-		// 			<input
-		// 				onChange={handleForm}
-		// 				name="item_value"
-		// 				type="text"
-		// 				value={itemForm.item_value}
-		// 				defaultValue={renderedItem.item_value}
-		// 			></input>{' '}
-		// 		</form>
-		// 	) : (
-		// 		<div>
-		// 			{' '}
-		// 			<p>{renderedItem.item_name}</p>
-		// 			<p>{renderedItem.item_value}</p>
-		// 		</div>
-		// 	)}
-
-		// 	{manage ? (
-		// 		<div>
-		// 			<Button
-		// 				onClick={handleDelete}
-		// 				variant="outlined"
-		// 				color="error"
-		// 			>
-		// 				{' '}
-		// 				Delete
-		// 			</Button>
-		// 			{!edit ? (
-		// 				<Button
-		// 					onClick={handleEdit}
-		// 					variant="outlined"
-		// 					color="success"
-		// 				>
-		// 					{' '}
-		// 					Edit
-		// 				</Button>
-		// 			) : (
-		// 				<Button
-		// 					onClick={handleUpdate}
-		// 					variant="outlined"
-		// 					color="success"
-		// 				>
-		// 					{' '}
-		// 					Update
-		// 				</Button>
-		// 			)}
-		// 		</div>
-		// 	) : null}
-		// </div>
+		
 	);
 };
 

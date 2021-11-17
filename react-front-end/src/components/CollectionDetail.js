@@ -21,7 +21,6 @@ const CollectionDetail = () => {
 	// useParams hook below.
 
 	const { collectionId } = useParams();
-	console.log({ collectionId });
 
 	// useParams() grabs the slug, which will be an id number
 	// we then fetch from the collections url passing in the
@@ -30,14 +29,11 @@ const CollectionDetail = () => {
 
 	// make REST request with useEffect to fetch the
 
-	console.log('b4 fetch');
-
 	useEffect(() => {
-		console.log('in fetch');
+		console.log("use effect hit")
 		fetch(`http://localhost:9292/collections/${collectionId}`)
 			.then((r) => r.json())
 			.then((data) => {
-				console.log(data);
 				setCollection(data);
 				setItems(data.items);
 				setIsLoaded(true);
@@ -50,20 +46,36 @@ const CollectionDetail = () => {
 		navigate('/home');
 	};
 
+	const updateItems = (doomedItem) => {
+		// const updatedItems = items.filter(
+		// 	(el) => el.id !== doomedItem.id
+		// );
+		// console.log(updatedItems)
+		setItems((prevItems) => {
+			const updatedItems = prevItems.filter(
+				(el) => el.id !== doomedItem.id
+			);
+			return updatedItems
+		});
+	}
+
 	const deleteItem = (doomedItem) => {
 		console.log(doomedItem);
 		fetch(`http://localhost:9292/items/${doomedItem.id}`, {
 			method: 'DELETE',
-		}).then((r) => r.json());
-		const newArr = items.filter((el) => el.id !== doomedItem.id);
-		setItems(newArr);
+		})
+		updateItems(doomedItem)
 	};
+
 	const addItemToItems = (freshItem) => {
 		setItems([...items, freshItem]);
 	};
+
 	if (!isLoaded) {
 		return <CircularProgress />;
 	} else {
+
+		console.log(items)
 		return (
 			<div className="collection-detail" style={{ textAlign: 'center' }}>
 				<Button onClick={goHome}>Return To Hub</Button>
@@ -95,6 +107,7 @@ const CollectionDetail = () => {
 					}}
 				>
 					{items.map((item) => {
+						console.log("Rendering items..........")
 						return (
 							<ItemCard
 								item={item}

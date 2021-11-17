@@ -17,10 +17,6 @@ const MainHub = () => {
 	})
 
 	const navigate = useNavigate()
-	
-	// useEffect(() => {
-	// 	setCollections(user.collections)
-	// }, [])
 
 	// fetch user data on load
 	useEffect(() => {
@@ -56,7 +52,8 @@ const MainHub = () => {
 	const deleteCollection = (doomedCollection) => {
 		fetch(`http://localhost:9292/collection/${doomedCollection.id}`, {
 			method: 'DELETE',
-		}).then(updateAfterDelete(doomedCollection));
+		}).then(res => res.json());
+		updateAfterDelete(doomedCollection)
 	};
 
 	const manageCollection = () => {

@@ -14,10 +14,6 @@ const NewItem = ({ collection, addItemToItems }) => {
 		collection_id: collection.id,
 	};
 
-	console.log(collection.id);
-
-	console.log(item);
-
 	const configObj = {
 		method: 'POST',
 		headers: {
@@ -36,8 +32,6 @@ const NewItem = ({ collection, addItemToItems }) => {
 			.then((freshItem) => addItemToItems(freshItem));
 		e.target.reset();
 	};
-
-	console.log(collection);
 
 	return (
 		<div>
