@@ -90,6 +90,7 @@ const CollectionDetail = () => {
 					style={{
 						alignItems: 'center',
 						display: 'flex',
+						flexWrap: 'wrap',
 						justifyContent: 'space-evenly',
 					}}
 				>

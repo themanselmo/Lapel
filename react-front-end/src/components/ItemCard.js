@@ -1,4 +1,5 @@
-import { Button } from '@mui/material';
+import { Button, Card, CardContent, Typography } from '@mui/material';
+
 import { useState } from 'react';
 
 const ItemCard = ({ item, manage, deleteItem }) => {
@@ -48,17 +49,8 @@ const ItemCard = ({ item, manage, deleteItem }) => {
 
 	console.log(renderedItem);
 	return (
-		<div
-			className="item-card"
-			style={{
-				borderRadius: '25px 25px 25px 25px',
-				borderStyle: 'outset',
-				borderColor: 'black',
-				maxWidth: '250px',
-				minWidth: '250px',
-				textAlign: 'center',
-			}}
-		>
+
+		<Card variant="outlined" sx={{ maxWidth: '250px', minWidth: '200px' }}>
 			{edit ? (
 				<form>
 					<label>Item Name:</label>
@@ -80,11 +72,15 @@ const ItemCard = ({ item, manage, deleteItem }) => {
 					></input>{' '}
 				</form>
 			) : (
-				<div>
+				<CardContent>
+				<Typography variant="h5">
 					{' '}
-					<p>{renderedItem.item_name}</p>
-					<p>{renderedItem.item_value}</p>
-				</div>
+					{renderedItem.item_name}{' '}
+				</Typography>
+				<Typography sx={{ mb: 1.5 }} color="text.secondary">
+					${renderedItem.item_value}
+				</Typography>
+			</CardContent>
 			)}
 
 			{manage ? (
@@ -118,7 +114,79 @@ const ItemCard = ({ item, manage, deleteItem }) => {
 					)}
 				</div>
 			) : null}
-		</div>
+		</Card>
+
+		// <div
+		// 	className="item-card"
+		// 	style={{
+		// 		borderRadius: '25px 25px 25px 25px',
+		// 		borderStyle: 'outset',
+		// 		borderColor: 'black',
+		// 		maxWidth: '250px',
+		// 		minWidth: '250px',
+		// 		textAlign: 'center',
+		// 	}}
+		// >
+		// 	{edit ? (
+		// 		<form>
+		// 			<label>Item Name:</label>
+		// 			<input
+		// 				onChange={handleForm}
+		// 				name="item_name"
+		// 				type="text"
+		// 				value={itemForm.item_name}
+		// 				defaultValue={renderedItem.item_name}
+		// 			></input>{' '}
+		// 			<br></br>
+		// 			<label>Price:</label>
+		// 			<input
+		// 				onChange={handleForm}
+		// 				name="item_value"
+		// 				type="text"
+		// 				value={itemForm.item_value}
+		// 				defaultValue={renderedItem.item_value}
+		// 			></input>{' '}
+		// 		</form>
+		// 	) : (
+		// 		<div>
+		// 			{' '}
+		// 			<p>{renderedItem.item_name}</p>
+		// 			<p>{renderedItem.item_value}</p>
+		// 		</div>
+		// 	)}
+
+		// 	{manage ? (
+		// 		<div>
+		// 			<Button
+		// 				onClick={handleDelete}
+		// 				variant="outlined"
+		// 				color="error"
+		// 			>
+		// 				{' '}
+		// 				Delete
+		// 			</Button>
+		// 			{!edit ? (
+		// 				<Button
+		// 					onClick={handleEdit}
+		// 					variant="outlined"
+		// 					color="success"
+		// 				>
+		// 					{' '}
+		// 					Edit
+		// 				</Button>
+		// 			) : (
+		// 				<Button
+		// 					onClick={handleUpdate}
+		// 					variant="outlined"
+		// 					color="success"
+		// 				>
+		// 					{' '}
+		// 					Update
+		// 				</Button>
+		// 			)}
+		// 		</div>
+		// 	) : null}
+		// </div>
 	);
 };
 

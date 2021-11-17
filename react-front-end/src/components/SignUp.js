@@ -16,21 +16,22 @@ const SignUp = ({ handleLoggingIn, handleSignUp }) => {
 		<div style={{ textAlign: "center" }}>
 			<h3>Welcome!</h3>
 			<p>Hello, please sign up:</p>
-			<TextField
-				name="username"
-				onChange={handleChange}
-				placeholder={'username'}
-				size="small"
-				sx={{ maxWidth: "200px"}}
-			></TextField>
-			<TextField
-				name="password"
-				onChange={handleChange}
-				placeholder={'password'}
-				size="small"
-				sx={{ maxWidth: "200px"}}
-			></TextField>
-
+			<ul>
+				<TextField
+					name="username"
+					onChange={handleChange}
+					placeholder={'username'}
+					size="small"
+					sx={{ maxWidth: "200px"}}
+				></TextField>
+				<TextField
+					name="password"
+					onChange={handleChange}
+					placeholder={'password'}
+					size="small"
+					sx={{ maxWidth: "200px"}}
+				></TextField>
+			</ul>
 			<Button onClick={() => handleSignUp(formData)}>Submit</Button>
 			<Button onClick={handleLoggingIn}>Log In</Button>
 		</div>

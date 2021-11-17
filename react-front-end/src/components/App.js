@@ -53,12 +53,14 @@ function App() {
 			.then((res) => res.json())
 			.catch((error) => console.log(error))
 			.then((data) => {
-				data === "User Exists" ? 
-				alert("Username is taken") 
-				:
-				// setCurrentUser(data)
-				UserProfile.setName(data.username)
-				setLoggedIn(true)
+				if(data === "User Exists") {
+					alert("Username is taken")
+				} else {
+					// setCurrentUser(data)
+					UserProfile.setName(data.username)
+					setLoggedIn(true)
+					navigate('/home')
+				}
 			})
 			
 	}
@@ -71,13 +73,16 @@ function App() {
 	const handleLogin = (formData) => {
 		// fetch to database of users checking to see if
 		// user with given username exists, and if so check the passwords
-		fetch(`http://localhost:9292/user/${formData.username}`)
+		const passedInUsername = formData.username.trim()
+		const passedInPassword = formData.password.trim()
+
+		fetch(`http://localhost:9292/user/${passedInUsername}`)
 			.then((res) => res.json())
 			.then((data) => {
 				if(data === null) {
 					alert("Username or password is wrong.")
 				} else {
-					checkLogin(data, formData)
+					checkLogin(data, passedInUsername, passedInPassword)
 				}	
 		});
 	};
@@ -86,10 +91,10 @@ function App() {
 	// database to see if an account with such username exits
 	// if it exists, it checks the username and password and if it passes
 	// sets the user to logged in and the currentuser state
-	const checkLogin = (data, formData) => {
+	const checkLogin = (data, passedInUsername, passedInPassword) => {
 		if (
-			data.username === formData.username &&
-			data.password === formData.password
+			data.username === passedInUsername &&
+			data.password === passedInPassword
 		) {
 					UserProfile.setName(data.username)
 					setLoggedIn(true);
