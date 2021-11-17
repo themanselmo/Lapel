@@ -5,11 +5,30 @@ puts "Creating users..."
 max = User.create(username: "max", password: "1")
 sam = User.create(username: "sam", password: "1")
 
+40.times do
+    User.create(username: Faker::Name.first_name, password: rand(1..100))
+end
+
 puts "Creating collections..."
 clothes = Collection.create(collection_name: "Clothes", user_id: max.id)
 camera_gear = Collection.create(collection_name: "Camera Gear", user_id: max.id)
-
 bike_stuff = Collection.create(collection_name: "Bike Gear", user_id: sam.id)
+
+200.times do
+    Collection.create(collection_name: Faker::Hobby.activity, user_id: User.all.sample.id)    
+end
+
+
+1000.times do
+    sample_id = Collection.all.sample.id
+    Item.create(
+        item_name: Faker::Appliance.equipment,
+        item_class: Collection.find(sample_id)[:collection_name],
+        item_value: rand(10..5000),
+        collection_id: sample_id,
+    )
+end
+
 
 puts "Creating items..."
 i1 = Item.create(
@@ -69,4 +88,7 @@ i9 = Item.create(
     item_value: 100.69, 
     collection_id: bike_stuff.id
 )
+
+
+
 puts "✅ Done seeding!"
