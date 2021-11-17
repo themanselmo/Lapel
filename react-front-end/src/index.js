@@ -5,12 +5,19 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './components/App';
 import CollectionDetail from './components/CollectionDetail';
 import Header from './components/Header';
+
 import MainHub from './components/MainHub';
+import Feed from './components/Feed';
 
 ReactDOM.render(
 	<BrowserRouter>
 		<Header />
+		
 		<Routes>
+			<Route 
+				path="/feed"
+				element={<Feed />}
+			/>
 			<Route
 				path="/collections/:collectionId"
 				// this path (:collectionId) is a placeholder variable(maybe not the right word) for

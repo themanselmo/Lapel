@@ -2,6 +2,7 @@ import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CollectionCard from './CollectionCard';
+import Nav from './Nav';
 import NewCollection from './NewCollection';
 
 
@@ -58,6 +59,11 @@ const MainHub = () => {
 		}).then(updateAfterDelete(doomedCollection));
 	};
 
+	const manageCollection = () => {
+		handleShowForm()
+		handleDeletingCollections()
+	}
+
 	const renderCards = collections.map((c) => {
 		return (
 			<CollectionCard
@@ -68,21 +74,15 @@ const MainHub = () => {
 		);
 	});
 
-	const logOut = () => {
-		localStorage.setItem('username', '')
-		navigate('/')
-	}
-
 	console.log("rendering main hub")
 	return (
 		<div>
+			<Nav />
 			{ user ? 
 				<div id="Main-Hub">
 					<div style={{ textAlign: "center"}}>
 						<h1>Welcome {user.username}!</h1>
-						<Button onClick={handleShowForm}>Create Collection</Button>
-						<Button onClick={handleDeletingCollections}>Delete Collection</Button>
-						<Button onClick={logOut}>Log Out</Button>
+						<Button onClick={manageCollection}>Manage Collections</Button>
 					</div>
 
 					<div>

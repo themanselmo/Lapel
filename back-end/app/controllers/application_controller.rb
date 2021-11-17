@@ -11,12 +11,22 @@ class ApplicationController < Sinatra::Base
     user.to_json
   end
 
+  get '/user/id/:id' do
+    User.find(params[:id])[:username].to_json
+  end
+
   get '/user/collections/:username' do
     User.find_by(username: params[:username]).to_json(:include => {:collections => {:include => :items}})
   end
 
   get '/collections/:id' do
     Collection.find_by(id: params[:id]).to_json(:include => :items)
+  end
+
+  get '/feed/:username' do 
+    # binding.pry
+    current_user = User.find_by(username: params[:username])
+    Collection.where.not(user_id: current_user.id).to_json(:include => :items)
   end
 
   post '/collections' do
@@ -51,4 +61,5 @@ class ApplicationController < Sinatra::Base
       User.create(username: params[:username], password: params[:password]).to_json(:include => {:collections => {:include => :items}})
        : "User Exists".to_json
   end
+
 end
