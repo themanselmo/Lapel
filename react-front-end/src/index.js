@@ -8,6 +8,7 @@ import Header from './components/Header';
 
 import MainHub from './components/MainHub';
 import Feed from './components/Feed';
+import FeedCollectionDetail from './components/FeedCollectionDetail';
 
 ReactDOM.render(
 	<BrowserRouter>
@@ -17,6 +18,10 @@ ReactDOM.render(
 			<Route 
 				path="/feed"
 				element={<Feed />}
+			/>
+			<Route 
+				path="/feed/collections/:collectionId"
+				element={<FeedCollectionDetail />}
 			/>
 			<Route
 				path="/collections/:collectionId"
@@ -28,7 +33,7 @@ ReactDOM.render(
 				// 20, we will go to "/collections/20"
 
 				element={<CollectionDetail />}
-			/>	
+			/>
 			<Route 
 				path="/home"
 				element={<MainHub />}

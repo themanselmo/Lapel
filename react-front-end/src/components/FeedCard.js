@@ -33,7 +33,7 @@ const FeedCard = ({ collection }) => {
 				</Typography>
 	
 			</CardContent>
-			<Link to={`/collections/${collection.id}`}>
+			<Link to={`/feed/collections/${collection.id}`}>
 				<Button sx={{ textAlign: 'center' }}>View More</Button>
 			</Link>
 	    </Card>
