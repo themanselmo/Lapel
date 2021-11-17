@@ -110,6 +110,7 @@ const CollectionDetail = () => {
 						console.log("Rendering items..........")
 						return (
 							<ItemCard
+								key={item.id}
 								item={item}
 								manage={manage}
 								deleteItem={deleteItem}
