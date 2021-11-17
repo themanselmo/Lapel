@@ -1,4 +1,5 @@
-import { Button } from '@mui/material';
+import { Button, Snackbar, Grow } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CollectionCard from './CollectionCard';
@@ -15,6 +16,10 @@ const MainHub = () => {
 		password: "",
 		collections: []
 	})
+
+	const [open, setOpen] = useState(false)
+	const [transition, setTransition] = useState(Grow);
+	const [alertMessage, setAlertMessage] = useState('')
 
 	const navigate = useNavigate()
 
@@ -40,6 +45,8 @@ const MainHub = () => {
 	const addNewCollection = (newCollection) => {
 		console.log(newCollection);
 		setCollections([...collections, newCollection]);
+		setAlertMessage('Collection Added!')
+		handleClick(Grow)
 	};
 
 	const updateAfterDelete = (doomedCollection) => {
@@ -47,6 +54,8 @@ const MainHub = () => {
 			(collection) => collection.id !== doomedCollection.id
 		);
 		setCollections(updatedCollections);
+		setAlertMessage('Collection Deleted!')
+		handleClick(Grow)
 	};
 
 	const deleteCollection = (doomedCollection) => {
@@ -70,6 +79,16 @@ const MainHub = () => {
 			/>
 		);
 	});
+
+	const handleClose = () => {
+		setOpen(false)
+	};
+
+	const handleClick = (transition) => {
+		setOpen(true)
+		setTransition(transition)
+	}
+
 
 	console.log("rendering main hub")
 	return (
@@ -107,6 +126,18 @@ const MainHub = () => {
 			null
 		}
 			
+			<Snackbar
+					open={open}
+					onClose={handleClose}
+					TransitionComponent={transition}
+					autoHideDuration={2000}
+					// message="Item Deleted!"
+					key={transition.name}
+				>
+					<MuiAlert elevation={6} variant="filled" onClose={handleClose} severity="success" sx={{ width: '100%' }} >
+						{alertMessage}
+					</MuiAlert>
+				</Snackbar>
 		</div>
 		
 	);

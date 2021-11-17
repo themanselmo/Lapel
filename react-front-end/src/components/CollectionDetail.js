@@ -1,4 +1,6 @@
-import { Button, CircularProgress } from '@mui/material';
+import React from 'react'
+import { Button, CircularProgress, Snackbar, Grow } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from './Header';
@@ -14,6 +16,9 @@ const CollectionDetail = () => {
 	const [items, setItems] = useState([]);
 	const navigate = useNavigate();
 
+	const [open, setOpen] = useState(false)
+	const [transition, setTransition] = useState(Grow);
+	const [alertMessage, setAlertMessage] = useState('')
 	// this will be a spinner waiting for the useEffect fetch
 
 	// As this component renders for each collections, there will be
@@ -65,11 +70,30 @@ const CollectionDetail = () => {
 			method: 'DELETE',
 		})
 		updateItems(doomedItem)
+		setAlertMessage('Item Deleted!')
+		handleClick(Grow)
 	};
 
 	const addItemToItems = (freshItem) => {
 		setItems([...items, freshItem]);
+		setAlertMessage('Item Added!')
+		handleClick(Grow)
 	};
+
+	const handleClose = () => {
+		setOpen(false)
+	};
+
+	const handleClick = (transition) => {
+		setOpen(true)
+		setTransition(transition)
+	}
+
+	const sumItems = (items) => {
+		let sum = 0
+		items.forEach(item => sum += item.item_value)
+		return sum
+	}
 
 	if (!isLoaded) {
 		return <CircularProgress />;
@@ -80,7 +104,6 @@ const CollectionDetail = () => {
 			<div className="collection-detail" style={{ textAlign: 'center' }}>
 				<Button onClick={goHome}>Return To Hub</Button>
 				<Button onClick={handleManage}>Manage Collection</Button>
-				<Button color="error">Delete Collection</Button>
 
 				<div className="collection-overview">
 					<h3>Overview</h3>
@@ -93,8 +116,8 @@ const CollectionDetail = () => {
 							/>
 						) : null}
 					</div>
-					<p>Total Items: {collection.items.length}</p>
-					<p>Total Value: total value</p>
+					<p>Total Items: {items.length}</p>
+					<p>Total Value: ${sumItems(items)}</p>
 				</div>
 
 				<div
@@ -118,6 +141,19 @@ const CollectionDetail = () => {
 						);
 					})}
 				</div>
+		
+				<Snackbar
+					open={open}
+					onClose={handleClose}
+					TransitionComponent={transition}
+					autoHideDuration={2000}
+					// message="Item Deleted!"
+					key={transition.name}
+				>
+					<MuiAlert elevation={6} variant="filled" onClose={handleClose} severity="success" sx={{ width: '100%' }} >
+						{alertMessage}
+					</MuiAlert>
+				</Snackbar>
 			</div>
 		);
 	}
