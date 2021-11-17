@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import './components/App.css';
 import App from './components/App';
 import CollectionDetail from './components/CollectionDetail';
 import Header from './components/Header';
@@ -21,11 +22,8 @@ ReactDOM.render(
 				// 20, we will go to "/collections/20"
 
 				element={<CollectionDetail />}
-			/>	
-			<Route 
-				path="/home"
-				element={<MainHub />}
 			/>
+			<Route path="/home" element={<MainHub />} />
 			{/* Use the router to render the CollectionDetail coming from a button press
       in the CollectionCard componenet */}
 			<Route path="/" element={<App />}></Route>

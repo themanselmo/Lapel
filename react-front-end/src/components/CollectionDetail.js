@@ -12,6 +12,8 @@ const CollectionDetail = () => {
 	const [collection, setCollection] = useState({});
 	const [manage, setManage] = useState(false);
 	const [items, setItems] = useState([]);
+	const [edit, setEdit] = useState(false);
+	const [renderedCollection, setRenderedCollection] = useState(collection);
 	const navigate = useNavigate();
 
 	// this will be a spinner waiting for the useEffect fetch
@@ -21,7 +23,6 @@ const CollectionDetail = () => {
 	// useParams hook below.
 
 	const { collectionId } = useParams();
-	console.log({ collectionId });
 
 	// useParams() grabs the slug, which will be an id number
 	// we then fetch from the collections url passing in the
@@ -30,14 +31,14 @@ const CollectionDetail = () => {
 
 	// make REST request with useEffect to fetch the
 
-	console.log('b4 fetch');
+	const handleEdit = () => {
+		setEdit(!edit);
+	};
 
 	useEffect(() => {
-		console.log('in fetch');
 		fetch(`http://localhost:9292/collections/${collectionId}`)
 			.then((r) => r.json())
 			.then((data) => {
-				console.log(data);
 				setCollection(data);
 				setItems(data.items);
 				setIsLoaded(true);
@@ -51,7 +52,6 @@ const CollectionDetail = () => {
 	};
 
 	const deleteItem = (doomedItem) => {
-		console.log(doomedItem);
 		fetch(`http://localhost:9292/items/${doomedItem.id}`, {
 			method: 'DELETE',
 		}).then((r) => r.json());
@@ -72,7 +72,27 @@ const CollectionDetail = () => {
 
 				<div className="collection-overview">
 					<h3>Overview</h3>
-					<h2>{collection.collection_name}</h2>
+					{edit ? (
+						<input
+							onChange={handleEdit}
+							name="collcetion_name"
+							type="text"
+							value={''}
+							default={collection.collection_name}
+						></input>
+					) : (
+						<h2>{collection.collection_name}</h2>
+					)}
+					{manage ? (
+						<Button
+							onClick={handleEdit}
+							variant="outlined"
+							color="success"
+						>
+							{' '}
+							Edit
+						</Button>
+					) : null}
 					<div>
 						{manage ? (
 							<NewItem

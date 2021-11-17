@@ -28,7 +28,6 @@ const ItemCard = ({ item, manage, deleteItem }) => {
 		const value = e.target.value;
 		setItemForm({ ...itemForm, [name]: value });
 	};
-	console.log(itemForm);
 
 	const handleUpdate = (e) => {
 		setEdit(!edit);
@@ -47,9 +46,7 @@ const ItemCard = ({ item, manage, deleteItem }) => {
 			.then((patchedItem) => setRenderedItem(patchedItem));
 	};
 
-	console.log(renderedItem);
 	return (
-
 		<Card variant="outlined" sx={{ maxWidth: '250px', minWidth: '200px' }}>
 			{edit ? (
 				<form>
@@ -73,14 +70,14 @@ const ItemCard = ({ item, manage, deleteItem }) => {
 				</form>
 			) : (
 				<CardContent>
-				<Typography variant="h5">
-					{' '}
-					{renderedItem.item_name}{' '}
-				</Typography>
-				<Typography sx={{ mb: 1.5 }} color="text.secondary">
-					${renderedItem.item_value}
-				</Typography>
-			</CardContent>
+					<Typography variant="h5">
+						{' '}
+						{renderedItem.item_name}{' '}
+					</Typography>
+					<Typography sx={{ mb: 1.5 }} color="text.secondary">
+						${renderedItem.item_value}
+					</Typography>
+				</CardContent>
 			)}
 
 			{manage ? (
