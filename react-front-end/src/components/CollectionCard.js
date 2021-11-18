@@ -22,6 +22,11 @@ const CollectionCard = ({
 				border: 'solid',
 				borderRadius: '20',
 				borderColor: '#e5e6e4',
+				maxWidth: '250px',
+				minWidth: '250px',
+				maxHeight: '250px',
+				minHeight: '250px',
+				margin: '20px',
 			}}
 			sx={{ maxWidth: '250px', minWidth: '200px', height: '200px' }}
 		>

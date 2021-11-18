@@ -58,7 +58,10 @@ const ItemCard = ({ item, manage, deleteItem }) => {
 			}}
 			sx={{
 				maxWidth: '250px',
-				minWidth: '200px',
+				minWidth: '250px',
+				maxHeight: '150px',
+				minHeight: '150px',
+				margin: '20px',
 			}}
 		>
 			{edit ? (
