@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 
 const NewItem = ({ collection, addItemToItems }) => {
 	const [itemName, setItemName] = useState('');
@@ -34,20 +34,24 @@ const NewItem = ({ collection, addItemToItems }) => {
 
 	return (
 		<div>
-			<h3>Add a new Item</h3>
+			<Typography variant="h6" style={{ marginTop: '10px' }}>
+				Add a new Item
+			</Typography>
 			<form onSubmit={handleSubmit}>
 				<ul style={{ listStyle: 'none' }}>
 					<li>
-						<label name="itemName">Item Name:</label>
-						<input
+						<TextField
+							placeholder="Item Name"
+							size="small"
 							id="itemName"
 							type="text"
 							onChange={(e) => setItemName(e.target.value)}
 						/>
 					</li>
 					<li>
-						<label name="itemvalue">Item Value:</label>
-						<input
+						<TextField
+							placeholder="Item Value"
+							size="small"
 							id="itemValue"
 							type="text"
 							onChange={(e) => setItemValue(e.target.value)}

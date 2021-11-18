@@ -75,7 +75,7 @@ const ItemCard = ({ item, manage, deleteItem }) => {
 						{renderedItem.item_name}{' '}
 					</Typography>
 					<Typography sx={{ mb: 1.5 }} color="text.secondary">
-						${renderedItem.item_value}
+						${renderedItem.item_value.toFixed(2)}
 					</Typography>
 				</CardContent>
 			)}
@@ -112,7 +112,6 @@ const ItemCard = ({ item, manage, deleteItem }) => {
 				</div>
 			) : null}
 		</Card>
-		
 	);
 };
 

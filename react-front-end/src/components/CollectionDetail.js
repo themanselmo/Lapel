@@ -1,9 +1,15 @@
-import React from 'react'
-import { Button, CircularProgress, Snackbar, Grow } from '@mui/material';
+import React from 'react';
+import {
+	Button,
+	CircularProgress,
+	Snackbar,
+	Grow,
+	TextField,
+	Typography,
+} from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-
 // import { DeleteIcon } from "@mui/icons-material/Delete";
 import ItemCard from './ItemCard';
 import NewItem from './NewItem';
@@ -19,9 +25,9 @@ const CollectionDetail = () => {
 
 	const navigate = useNavigate();
 
-	const [open, setOpen] = useState(false)
+	const [open, setOpen] = useState(false);
 	const [transition, setTransition] = useState(Grow);
-	const [alertMessage, setAlertMessage] = useState('')
+	const [alertMessage, setAlertMessage] = useState('');
 	// this will be a spinner waiting for the useEffect fetch
 
 	// As this component renders for each collections, there will be
@@ -91,64 +97,69 @@ const CollectionDetail = () => {
 			const updatedItems = prevItems.filter(
 				(el) => el.id !== doomedItem.id
 			);
-			return updatedItems
+			return updatedItems;
 		});
-	}
+	};
 
 	const deleteItem = (doomedItem) => {
 		fetch(`http://localhost:9292/items/${doomedItem.id}`, {
 			method: 'DELETE',
-		})
-		updateItems(doomedItem)
-		setAlertMessage('Item Deleted!')
-		handleClick(Grow)
+		});
+		updateItems(doomedItem);
+		setAlertMessage('Item Deleted!');
+		handleClick(Grow);
 	};
 
 	const addItemToItems = (freshItem) => {
 		setItems([...items, freshItem]);
-		setAlertMessage('Item Added!')
-		handleClick(Grow)
+		setAlertMessage('Item Added!');
+		handleClick(Grow);
 	};
 
 	const handleClose = () => {
-		setOpen(false)
+		setOpen(false);
 	};
 
 	const handleClick = (transition) => {
-		setOpen(true)
-		setTransition(transition)
-	}
+		setOpen(true);
+		setTransition(transition);
+	};
 
 	const sumItems = (items) => {
-		let sum = 0
-		items.forEach(item => sum += item.item_value)
-		return sum
-	}
+		let sum = 0;
+		items.forEach((item) => (sum += item.item_value));
+		return sum.toFixed(2);
+	};
 
 	if (!isLoaded) {
 		return <CircularProgress />;
 	} else {
-
-		console.log(items)
+		console.log(items);
 		return (
 			<div className="collection-detail" style={{ textAlign: 'center' }}>
 				<Button onClick={goHome}>Return To Hub</Button>
 				<Button onClick={handleManage}>Manage Collection</Button>
 
 				<div className="collection-overview">
-					<h3>Overview</h3>
+					<Typography variant="h6" style={{ padding: '10px' }}>
+						Collection Overview
+					</Typography>
 					{edit ? (
 						<form>
-							<input
+							<TextField
+								style={{ marginBottom: 20 }}
+								size="small"
 								onChange={handleForm}
 								name="collection_name"
 								type="text"
 								value={formData}
 								defaultValue={collection.collection_name}
-							></input>
+							/>
 						</form>
 					) : (
-						<h2>{renderedCollection.collection_name}</h2>
+						<Typography variant="h4" style={{ padding: '10px' }}>
+							{renderedCollection.collection_name}
+						</Typography>
 					)}
 					<div>
 						{manage ? (
@@ -182,8 +193,12 @@ const CollectionDetail = () => {
 							/>
 						) : null}
 					</div>
-					<p>Total Items: {items.length}</p>
-					<p>Total Value: ${sumItems(items)}</p>
+					<Typography variant="subtitle1">
+						Total Items: {items.length}
+					</Typography>
+					<Typography variant="subtitle1">
+						Total Value: ${sumItems(items)}
+					</Typography>
 				</div>
 
 				<div
@@ -196,7 +211,7 @@ const CollectionDetail = () => {
 					}}
 				>
 					{items.map((item) => {
-						console.log("Rendering items..........")
+						console.log('Rendering items..........');
 						return (
 							<ItemCard
 								key={item.id}
@@ -207,7 +222,7 @@ const CollectionDetail = () => {
 						);
 					})}
 				</div>
-		
+
 				<Snackbar
 					open={open}
 					onClose={handleClose}
@@ -216,7 +231,13 @@ const CollectionDetail = () => {
 					// message="Item Deleted!"
 					key={transition.name}
 				>
-					<MuiAlert elevation={6} variant="filled" onClose={handleClose} severity="success" sx={{ width: '100%' }} >
+					<MuiAlert
+						elevation={6}
+						variant="filled"
+						onClose={handleClose}
+						severity="success"
+						sx={{ width: '100%' }}
+					>
 						{alertMessage}
 					</MuiAlert>
 				</Snackbar>

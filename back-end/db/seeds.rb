@@ -15,7 +15,7 @@ camera_gear = Collection.create(collection_name: "Camera Gear", user_id: max.id)
 bike_stuff = Collection.create(collection_name: "Bike Gear", user_id: sam.id)
 
 200.times do
-    Collection.create(collection_name: Faker::Hobby.activity, user_id: User.all.sample.id)    
+    Collection.create(collection_name: Faker::Commerce.department, user_id: User.all.sample.id)    
 end
 
 

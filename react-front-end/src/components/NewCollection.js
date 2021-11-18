@@ -1,47 +1,49 @@
-import { useState } from "react"
+import { Button, TextField, Typography } from '@mui/material';
+import { useState } from 'react';
 
 const NewCollection = ({ addNewCollection, user }) => {
-    const [name, setName] = useState("")
-    
-    const stuff = {
-        name: name,
-        user_id: user.id
-    }
+	const [name, setName] = useState('');
 
-    const configObj = {
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify( stuff ),
-    };
+	const stuff = {
+		name: name,
+		user_id: user.id,
+	};
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+	const configObj = {
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(stuff),
+	};
 
-        // make post to create a new collection
-        fetch("http://localhost:9292/collections", configObj)
-            .then(res => res.json())
-            .then(collection => addNewCollection(collection))
-    }
+	const handleSubmit = (e) => {
+		e.preventDefault();
 
-    return (
-        <div style={{ textAlign: "center"}}>
-            <h3>Add a new collection:</h3>
-            <form onSubmit={handleSubmit}>
-                <label name="name">Name:</label>
-                <input 
-                    id="name"
-                    type="text"
-                    name="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-    )
-}
+		// make post to create a new collection
+		fetch('http://localhost:9292/collections', configObj)
+			.then((res) => res.json())
+			.then((collection) => addNewCollection(collection));
+	};
 
-export default NewCollection
+	return (
+		<div style={{ marginTop: 20, textAlign: 'center' }}>
+			<Typography variant="h6">Add a new collection:</Typography>
+			<form onSubmit={handleSubmit}>
+				<TextField
+					size="small"
+					id="name"
+					type="text"
+					name="name"
+					value={name}
+					placeholder="Name"
+					onChange={(e) => setName(e.target.value)}
+				/>
+				<Button type="submit">Submit</Button>
+			</form>
+		</div>
+	);
+};
+
+export default NewCollection;
