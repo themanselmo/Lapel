@@ -13,7 +13,9 @@ const CollectionDetail = () => {
 	const [manage, setManage] = useState(false);
 	const [items, setItems] = useState([]);
 	const [edit, setEdit] = useState(false);
-	const [renderedCollection, setRenderedCollection] = useState(collection);
+	const [formData, setFormData] = useState('');
+	const [renderedCollection, setRenderedCollection] = useState({});
+
 	const navigate = useNavigate();
 
 	// this will be a spinner waiting for the useEffect fetch
@@ -35,6 +37,29 @@ const CollectionDetail = () => {
 		setEdit(!edit);
 	};
 
+	const handleForm = (e) => {
+		setFormData(e.target.value);
+	};
+
+	const handleUpdate = (e) => {
+		setEdit(!edit);
+		e.preventDefault();
+		fetch(`http://localhost:9292/collections/${collection.id}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				collection_name: formData,
+			}),
+		})
+			.then((r) => r.json())
+			.then((patchedCollection) => {
+				console.log(patchedCollection);
+				setRenderedCollection(patchedCollection);
+			});
+	};
+
 	useEffect(() => {
 		fetch(`http://localhost:9292/collections/${collectionId}`)
 			.then((r) => r.json())
@@ -42,6 +67,8 @@ const CollectionDetail = () => {
 				setCollection(data);
 				setItems(data.items);
 				setIsLoaded(true);
+				setRenderedCollection(data);
+				setFormData(data.collection_name);
 			});
 	}, []);
 
@@ -61,6 +88,8 @@ const CollectionDetail = () => {
 	const addItemToItems = (freshItem) => {
 		setItems([...items, freshItem]);
 	};
+
+	console.log(renderedCollection);
 	if (!isLoaded) {
 		return <CircularProgress />;
 	} else {
@@ -73,27 +102,43 @@ const CollectionDetail = () => {
 				<div className="collection-overview">
 					<h3>Overview</h3>
 					{edit ? (
-						<input
-							onChange={handleEdit}
-							name="collcetion_name"
-							type="text"
-							value={''}
-							default={collection.collection_name}
-						></input>
+						<form>
+							<input
+								onChange={handleForm}
+								name="collection_name"
+								type="text"
+								value={formData}
+								defaultValue={collection.collection_name}
+							></input>
+						</form>
 					) : (
-						<h2>{collection.collection_name}</h2>
+						<h2>{renderedCollection.collection_name}</h2>
 					)}
-					{manage ? (
-						<Button
-							onClick={handleEdit}
-							variant="outlined"
-							color="success"
-						>
-							{' '}
-							Edit
-						</Button>
-					) : null}
 					<div>
+						{manage ? (
+							<div>
+								{edit ? (
+									<Button
+										onClick={handleUpdate}
+										variant="outlined"
+										color="success"
+									>
+										{' '}
+										Update
+									</Button>
+								) : (
+									<Button
+										onClick={handleEdit}
+										variant="outlined"
+										color="success"
+									>
+										{' '}
+										Edit
+									</Button>
+								)}
+							</div>
+						) : null}
+
 						{manage ? (
 							<NewItem
 								collection={collection}
@@ -117,6 +162,7 @@ const CollectionDetail = () => {
 					{items.map((item) => {
 						return (
 							<ItemCard
+								key={item.id}
 								item={item}
 								manage={manage}
 								deleteItem={deleteItem}

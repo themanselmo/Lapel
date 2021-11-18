@@ -6,17 +6,12 @@ const NewItem = ({ collection, addItemToItems }) => {
 	const [itemValue, setItemValue] = useState(null);
 
 	// const [items, setItems] = useState(collection.items);
-	// console.log({ items });
 	const item = {
 		name: itemName,
 		item_class: collection.collection_name,
 		item_value: itemValue,
 		collection_id: collection.id,
 	};
-
-	console.log(collection.id);
-
-	console.log(item);
 
 	const configObj = {
 		method: 'POST',
@@ -37,13 +32,11 @@ const NewItem = ({ collection, addItemToItems }) => {
 		e.target.reset();
 	};
 
-	console.log(collection);
-
 	return (
 		<div>
 			<h3>Add a new Item</h3>
 			<form onSubmit={handleSubmit}>
-				<ul style={{ listStyle: "none" }}>
+				<ul style={{ listStyle: 'none' }}>
 					<li>
 						<label name="itemName">Item Name:</label>
 						<input
