@@ -38,8 +38,8 @@ const FeedCollectionDetail = () => {
 	}, [collectionId]);
 
 
-	const goHome = () => {
-		navigate('/home');
+	const goBack = () => {
+		navigate('/feed');
 	};
 
 	if (!isLoaded) {
@@ -49,7 +49,7 @@ const FeedCollectionDetail = () => {
 		console.log(items)
 		return (
 			<div className="collection-detail" style={{ textAlign: 'center' }}>
-				<Button onClick={goHome}>Return To Hub</Button>
+				<Button onClick={goBack}>Return To Feed</Button>
 
 				<div className="collection-overview">
 					<h3>Overview</h3>

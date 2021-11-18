@@ -74,8 +74,11 @@ function App() {
 		// user with given username exists, and if so check the passwords
 		const passedInUsername = formData.username.trim()
 		const passedInPassword = formData.password.trim()
-
-		fetch(`http://localhost:9292/user/${passedInUsername}`)
+		
+		if(passedInUsername === '' || passedInPassword === '' ) {
+			alert("Please enter a valid username and password.")
+		} else {
+			fetch(`http://localhost:9292/user/${passedInUsername}`)
 			.then((res) => res.json())
 			.then((data) => {
 				if(data === null) {
@@ -83,7 +86,9 @@ function App() {
 				} else {
 					checkLogin(data, passedInUsername, passedInPassword)
 				}	
-		});
+			});
+		}
+		
 	};
 
 	// takes the data passed from the login form and fetches to the
