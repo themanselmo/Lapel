@@ -1,6 +1,7 @@
 import { CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import FeedCard from './FeedCard';
+import Footer from './Footer';
 import Nav from './Nav';
 
 const Feed = () => {

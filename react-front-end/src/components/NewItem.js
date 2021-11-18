@@ -24,12 +24,16 @@ const NewItem = ({ collection, addItemToItems }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
-		// post new item to collection
-		fetch('http://localhost:9292/items', configObj)
-			.then((r) => r.json())
-			.then((freshItem) => addItemToItems(freshItem));
-		e.target.reset();
+		if(itemName === '' || itemValue === '') {
+			alert('Please give the item a name and value')
+		} else {
+			// post new item to collection
+			fetch('http://localhost:9292/items', configObj)
+				.then((r) => r.json())
+				.then((freshItem) => addItemToItems(freshItem));
+			e.target.reset();
+		}
+		
 	};
 
 	return (

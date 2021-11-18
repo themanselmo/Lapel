@@ -2,6 +2,7 @@ import { Button, Snackbar, Grow, Typography } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { useEffect, useState } from 'react';
 import CollectionCard from './CollectionCard';
+import Footer from './Footer';
 import Nav from './Nav';
 import NewCollection from './NewCollection';
 
@@ -131,6 +132,7 @@ const MainHub = () => {
 							flexWrap: 'wrap',
 							justifyContent: 'space-evenly',
 							padding: '20px',
+							minHeight: '450px'
 						}}
 					>
 						{renderCards}

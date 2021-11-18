@@ -21,10 +21,15 @@ const NewCollection = ({ addNewCollection, user }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		// make post to create a new collection
-		fetch('http://localhost:9292/collections', configObj)
-			.then((res) => res.json())
-			.then((collection) => addNewCollection(collection));
+		if(name === '') {
+			alert('Please enter a name for the collection.')
+		} else {
+			// make post to create a new collection
+			fetch('http://localhost:9292/collections', configObj)
+				.then((res) => res.json())
+				.then((collection) => addNewCollection(collection));
+		}
+		
 	};
 
 	return (

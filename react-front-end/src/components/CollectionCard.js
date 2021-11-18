@@ -15,7 +15,7 @@ const CollectionCard = ({
 	};
 
 	return (
-		<Card variant="outlined" sx={{ maxWidth: '250px', minWidth: '200px' }}>
+		<Card variant="outlined" sx={{ maxWidth: '250px', minWidth: '200px', height: '200px'}}>
 			<CardContent>
 				<Typography variant="h5">
 					{' '}

@@ -207,7 +207,7 @@ const CollectionDetail = () => {
 						alignItems: 'center',
 						display: 'flex',
 						flexWrap: 'wrap',
-						justifyContent: 'space-evenly',
+						justifyContent: 'space-evenly'
 					}}
 				>
 					{items.map((item) => {

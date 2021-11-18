@@ -1,6 +1,6 @@
 import { TextField, Button } from '@mui/material';
 import { useState } from 'react';
-
+import image from '../assets/signup.png'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const SignUp = ({ handleLoggingIn, handleSignUp }) => {
@@ -15,24 +15,27 @@ const SignUp = ({ handleLoggingIn, handleSignUp }) => {
 
 	return (
 		<div className="login-container" style={{ textAlign: 'center' }}>
+			<img src={image} style={{ maxWidth: '300px', paddingTop: '67px'}}/>
 			<h3 className="login-greeting">Welcome!</h3>
 			<p className="login-instructions">Hello, please sign up:</p>
-			<ul>
-				<TextField
-					name="username"
-					onChange={handleChange}
-					placeholder={'username'}
-					size="small"
-					sx={{ maxWidth: '200px' }}
-				></TextField>{' '}
-				<TextField
-					name="password"
-					onChange={handleChange}
-					placeholder={'password'}
-					size="small"
-					sx={{ maxWidth: '200px' }}
-				></TextField>
-			</ul>
+			<div  style={{ padding: '10px'}}>
+				<ul>
+					<TextField
+						name="username"
+						onChange={handleChange}
+						placeholder={'username'}
+						size="small"
+						sx={{ maxWidth: '200px' }}
+					></TextField>{' '}
+					<TextField
+						name="password"
+						onChange={handleChange}
+						placeholder={'password'}
+						size="small"
+						sx={{ maxWidth: '200px' }}
+					></TextField>
+				</ul>
+			</div>
 			<Button
 				className="login-buttons"
 				variant="contained"
@@ -40,7 +43,11 @@ const SignUp = ({ handleLoggingIn, handleSignUp }) => {
 			>
 				Submit
 			</Button>{' '}
-			<Button className="login-buttons" onClick={handleLoggingIn}>
+			<Button 
+				className="login-buttons" 
+				variant="contained"
+				onClick={handleLoggingIn}
+			>
 				Log In
 			</Button>
 		</div>

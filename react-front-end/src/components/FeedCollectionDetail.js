@@ -1,4 +1,4 @@
-import { Button, CircularProgress } from '@mui/material';
+import { Button, CircularProgress, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -52,9 +52,15 @@ const FeedCollectionDetail = () => {
 				<Button onClick={goBack}>Return To Feed</Button>
 
 				<div className="collection-overview">
-					<h3>Overview</h3>
-					<h2>{collection.collection_name}</h2>
-					<p>Total Items: {collection.items.length}</p>
+					<Typography variant="h6" style={{ padding: '10px' }}>
+						Overview
+					</Typography>
+					<Typography variant="h4" style={{ padding: '10px' }}>
+						{collection.collection_name}
+					</Typography>
+					<Typography variant="subtitle1">
+						Total Items: {collection.items.length}
+					</Typography>
 				</div>
 
 				<div

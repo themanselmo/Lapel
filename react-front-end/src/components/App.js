@@ -3,6 +3,7 @@ import Login from './Login';
 import SignUp from './SignUp';
 import { useNavigate } from 'react-router-dom'
 import UserProfile from './UserProfile';
+import Footer from './Footer';
 
 function App() {
 	// state variables
@@ -38,30 +39,37 @@ function App() {
 	// };
 
 	const handleSignUp = (formData) => {
-		const newUser = formData
-		const configObj = {
-			method: "POST",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify( newUser ),
-    	};
+		
+		const passedInUsername = formData.username.trim()
+		const passedInPassword = formData.password.trim()
+		
+		if(passedInUsername === '' || passedInPassword === '' ) {
+			alert("Please enter a valid username and password.")
+		} else {
+			const newUser = formData
+			const configObj = {
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify( newUser ),
+			};
 
-		fetch(`http://localhost:9292/user/new`, configObj)
-			.then((res) => res.json())
-			.catch((error) => console.log(error))
-			.then((data) => {
-				if(data === "User Exists") {
-					alert("Username is taken")
-				} else {
-					// setCurrentUser(data)
-					UserProfile.setName(data.username)
-					setLoggedIn(true)
-					navigate('/home')
-				}
-			})
-			
+			fetch(`http://localhost:9292/user/new`, configObj)
+				.then((res) => res.json())
+				.catch((error) => console.log(error))
+				.then((data) => {
+					if(data === "User Exists") {
+						alert("Username is taken")
+					} else {
+						// setCurrentUser(data)
+						UserProfile.setName(data.username)
+						setLoggedIn(true)
+						navigate('/home')
+					}
+				})
+		}
 	}
 
 	const handleLoggingIn = () => {
@@ -127,6 +135,7 @@ function App() {
 		<div className="App">
 			{loggedIn ? null : null}
 			{loginForm()}
+			<Footer />
 		</div>
 	);
 }

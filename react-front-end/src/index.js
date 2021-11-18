@@ -10,34 +10,37 @@ import Header from './components/Header';
 import MainHub from './components/MainHub';
 import Feed from './components/Feed';
 import FeedCollectionDetail from './components/FeedCollectionDetail';
+import Footer from './components/Footer';
 
 ReactDOM.render(
 	<BrowserRouter>
-		<Header />
+		<div id="main-wrapper">
+			<Header />
 
-		<Routes>
-			<Route path="/feed" element={<Feed />} />
-			<Route
-				path="/feed/collections/:collectionId"
-				element={<FeedCollectionDetail />}
-			/>
-			<Route
-				path="/collections/:collectionId"
-				// this path (:collectionId) is a placeholder variable(maybe not the right word) for
-				// the element wrapping our "View More" button in CollectionCard.js
+			
+			<Routes>
+				<Route path="/feed" element={<Feed />} />
+				<Route
+					path="/feed/collections/:collectionId"
+					element={<FeedCollectionDetail />}
+				/>
+				<Route
+					path="/collections/:collectionId"
+					// this path (:collectionId) is a placeholder variable(maybe not the right word) for
+					// the element wrapping our "View More" button in CollectionCard.js
 
-				// When clicking in on "View More" in CollectionCard.js, we pass the
-				// collection.id into this path. If we are clicking a collection with an ID of
-				// 20, we will go to "/collections/20"
+					// When clicking in on "View More" in CollectionCard.js, we pass the
+					// collection.id into this path. If we are clicking a collection with an ID of
+					// 20, we will go to "/collections/20"
 
-				element={<CollectionDetail />}
-			/>
-			<Route path="/home" element={<MainHub />} />
-			<Route path="/home" element={<MainHub />} />
-			{/* Use the router to render the CollectionDetail coming from a button press
-      in the CollectionCard componenet */}
-			<Route path="/" element={<App />}></Route>
-		</Routes>
+					element={<CollectionDetail />}
+				/>
+				<Route path="/home" element={<MainHub />} />
+				{/* Use the router to render the CollectionDetail coming from a button press
+		in the CollectionCard componenet */}
+				<Route path="/" element={<App />}></Route>
+			</Routes>
+		</div>
 	</BrowserRouter>,
 	document.getElementById('root')
 );
