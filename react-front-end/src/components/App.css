@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&family=Noto+Sans&family=Racing+Sans+One&display=swap');
+.title {
+	font-family: 'Racing Sans One', cursive;
+	font-size: 80px;
+	padding: 40px;
+	color: white;
+}
+
+.title-container {
+	background-color: #1d3557;
+}
+
+body {
+	background-color: #ffffff;
+}
+
+.login-container {
+	margin-top: 20px;
+	font-family: 'DM Sans', sans-serif;
+	justify-content: center;
+
+}
+
+.login-greeting {
+	font-size: 20px;
+	font-style: italic;
+}
+
+.login-instructions {
+	font-size: 15px;
+	font-weight: 300;
+}
+
+.login-buttons {
+	display: flex;
+	background-color: #e63946;
+	margin: 30px;
+	width: 100px;
+	padding: 20px;
+	position: relative;
+}

@@ -13,6 +13,10 @@ const CollectionDetail = () => {
 	const [collection, setCollection] = useState({});
 	const [manage, setManage] = useState(false);
 	const [items, setItems] = useState([]);
+	const [edit, setEdit] = useState(false);
+	const [formData, setFormData] = useState('');
+	const [renderedCollection, setRenderedCollection] = useState({});
+
 	const navigate = useNavigate();
 
 	const [open, setOpen] = useState(false)
@@ -33,14 +37,42 @@ const CollectionDetail = () => {
 
 	// make REST request with useEffect to fetch the
 
+	const handleEdit = () => {
+		setEdit(!edit);
+	};
+
+	const handleForm = (e) => {
+		setFormData(e.target.value);
+	};
+
+	const handleUpdate = (e) => {
+		setEdit(!edit);
+		e.preventDefault();
+		fetch(`http://localhost:9292/collections/${collection.id}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				collection_name: formData,
+			}),
+		})
+			.then((r) => r.json())
+			.then((patchedCollection) => {
+				console.log(patchedCollection);
+				setRenderedCollection(patchedCollection);
+			});
+	};
+
 	useEffect(() => {
-		console.log("use effect hit")
 		fetch(`http://localhost:9292/collections/${collectionId}`)
 			.then((r) => r.json())
 			.then((data) => {
 				setCollection(data);
 				setItems(data.items);
 				setIsLoaded(true);
+				setRenderedCollection(data);
+				setFormData(data.collection_name);
 			});
 	}, [collectionId]);
 
@@ -64,7 +96,6 @@ const CollectionDetail = () => {
 	}
 
 	const deleteItem = (doomedItem) => {
-		console.log(doomedItem);
 		fetch(`http://localhost:9292/items/${doomedItem.id}`, {
 			method: 'DELETE',
 		})
@@ -106,8 +137,44 @@ const CollectionDetail = () => {
 
 				<div className="collection-overview">
 					<h3>Overview</h3>
-					<h2>{collection.collection_name}</h2>
+					{edit ? (
+						<form>
+							<input
+								onChange={handleForm}
+								name="collection_name"
+								type="text"
+								value={formData}
+								defaultValue={collection.collection_name}
+							></input>
+						</form>
+					) : (
+						<h2>{renderedCollection.collection_name}</h2>
+					)}
 					<div>
+						{manage ? (
+							<div>
+								{edit ? (
+									<Button
+										onClick={handleUpdate}
+										variant="outlined"
+										color="success"
+									>
+										{' '}
+										Update
+									</Button>
+								) : (
+									<Button
+										onClick={handleEdit}
+										variant="outlined"
+										color="success"
+									>
+										{' '}
+										Edit
+									</Button>
+								)}
+							</div>
+						) : null}
+
 						{manage ? (
 							<NewItem
 								collection={collection}

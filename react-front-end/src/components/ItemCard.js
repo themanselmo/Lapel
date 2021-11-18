@@ -47,7 +47,6 @@ const ItemCard = ({ item, manage, deleteItem }) => {
 	};
 
 	return (
-
 		<Card variant="outlined" sx={{ maxWidth: '250px', minWidth: '200px' }}>
 			{edit ? (
 				<form>
@@ -71,14 +70,14 @@ const ItemCard = ({ item, manage, deleteItem }) => {
 				</form>
 			) : (
 				<CardContent>
-				<Typography variant="h5">
-					{' '}
-					{renderedItem.item_name}{' '}
-				</Typography>
-				<Typography sx={{ mb: 1.5 }} color="text.secondary">
-					${renderedItem.item_value}
-				</Typography>
-			</CardContent>
+					<Typography variant="h5">
+						{' '}
+						{renderedItem.item_name}{' '}
+					</Typography>
+					<Typography sx={{ mb: 1.5 }} color="text.secondary">
+						${renderedItem.item_value}
+					</Typography>
+				</CardContent>
 			)}
 
 			{manage ? (

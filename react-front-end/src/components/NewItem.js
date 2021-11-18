@@ -6,7 +6,6 @@ const NewItem = ({ collection, addItemToItems }) => {
 	const [itemValue, setItemValue] = useState(null);
 
 	// const [items, setItems] = useState(collection.items);
-	// console.log({ items });
 	const item = {
 		name: itemName,
 		item_class: collection.collection_name,
@@ -37,7 +36,7 @@ const NewItem = ({ collection, addItemToItems }) => {
 		<div>
 			<h3>Add a new Item</h3>
 			<form onSubmit={handleSubmit}>
-				<ul style={{ listStyle: "none" }}>
+				<ul style={{ listStyle: 'none' }}>
 					<li>
 						<label name="itemName">Item Name:</label>
 						<input
