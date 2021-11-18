@@ -71,6 +71,7 @@ const FeedCollectionDetail = () => {
 						flexWrap: 'wrap',
 						justifyContent: 'space-evenly',
 					}}
+					
 				>
 					{items.map((item) => {
 						console.log("Rendering items..........")

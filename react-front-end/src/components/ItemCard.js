@@ -1,4 +1,6 @@
 import { Button, Card, CardContent, Typography } from '@mui/material';
+import Paper from '@mui/material/Paper';
+import { borderRadius } from '@mui/system';
 
 import { useState } from 'react';
 
@@ -47,7 +49,18 @@ const ItemCard = ({ item, manage, deleteItem }) => {
 	};
 
 	return (
-		<Card variant="outlined" sx={{ maxWidth: '250px', minWidth: '200px' }}>
+		<Paper
+			elevation={12}
+			style={{
+				border: 'solid',
+				borderRadius: '20',
+				borderColor: '#e5e6e4',
+			}}
+			sx={{
+				maxWidth: '250px',
+				minWidth: '200px',
+			}}
+		>
 			{edit ? (
 				<form>
 					<label>Item Name:</label>
@@ -111,7 +124,7 @@ const ItemCard = ({ item, manage, deleteItem }) => {
 					)}
 				</div>
 			) : null}
-		</Card>
+		</Paper>
 	);
 };
 

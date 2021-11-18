@@ -30,6 +30,7 @@ end
 end
 
 
+
 puts "Creating items..."
 i1 = Item.create(
     item_name: "Shirt", 

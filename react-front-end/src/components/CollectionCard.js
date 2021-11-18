@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, Typography } from '@mui/material';
+import { Button, Card, CardContent, Paper, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const CollectionCard = ({
@@ -15,7 +15,16 @@ const CollectionCard = ({
 	};
 
 	return (
-		<Card variant="outlined" sx={{ maxWidth: '250px', minWidth: '200px', height: '200px'}}>
+		<Paper
+			elevation={12}
+			style={{
+				// backgroundColor: '#f0efeb',
+				border: 'solid',
+				borderRadius: '20',
+				borderColor: '#e5e6e4',
+			}}
+			sx={{ maxWidth: '250px', minWidth: '200px', height: '200px' }}
+		>
 			<CardContent>
 				<Typography variant="h5">
 					{' '}
@@ -41,7 +50,7 @@ const CollectionCard = ({
 					Delete
 				</Button>
 			) : null}
-		</Card>
+		</Paper>
 	);
 };
 
