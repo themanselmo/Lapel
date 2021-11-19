@@ -108,8 +108,9 @@ const MainHub = () => {
 			{user ? (
 				<div id="Main-Hub">
 					<div style={{ textAlign: 'center' }}>
-						<Typography variant="h4">
-							Welcome {user.username}!
+						<Typography variant="h4">Welcome, </Typography>
+						<Typography variant="h4" style={{ color: '#1d3557' }}>
+							{user.username}
 						</Typography>
 						<Button onClick={manageCollection}>
 							Manage Collections
@@ -132,7 +133,7 @@ const MainHub = () => {
 							flexWrap: 'wrap',
 							justifyContent: 'space-evenly',
 							padding: '20px',
-							minHeight: '450px'
+							minHeight: '450px',
 						}}
 					>
 						{renderCards}
