@@ -35,7 +35,7 @@ const CollectionDetail = () => {
 	// useParams hook below.
 
 	const { collectionId } = useParams();
-
+	const { collectionSum, setCollectionSum } = useState(null);
 	// useParams() grabs the slug, which will be an id number
 	// we then fetch from the collections url passing in the
 	// ID number gabbed by useParams, succesfully fetching our
@@ -65,7 +65,6 @@ const CollectionDetail = () => {
 		})
 			.then((r) => r.json())
 			.then((patchedCollection) => {
-				console.log(patchedCollection);
 				setRenderedCollection(patchedCollection);
 			});
 	};
@@ -79,6 +78,7 @@ const CollectionDetail = () => {
 				setIsLoaded(true);
 				setRenderedCollection(data);
 				setFormData(data.collection_name);
+				sumItems(data.items);
 			});
 	}, [collectionId]);
 
@@ -97,6 +97,7 @@ const CollectionDetail = () => {
 			const updatedItems = prevItems.filter(
 				(el) => el.id !== doomedItem.id
 			);
+			sumItems(updatedItems);
 			return updatedItems;
 		});
 	};
@@ -114,6 +115,8 @@ const CollectionDetail = () => {
 		setItems([...items, freshItem]);
 		setAlertMessage('Item Added!');
 		handleClick(Grow);
+
+		sumItems([...items, freshItem]);
 	};
 
 	const handleClose = () => {
@@ -125,16 +128,31 @@ const CollectionDetail = () => {
 		setTransition(transition);
 	};
 
+	const resetSumState = () => {
+		fetch(`http://localhost:9292/collections/${collectionId}`)
+			.then((r) => r.json())
+			.then((data) => {
+				console.log(collection);
+				setCollection(collection);
+				sumItems(data.items);
+			});
+	};
+
+	const [sumValue, setSumValue] = useState(0);
+
 	const sumItems = (items) => {
+		console.log(items);
 		let sum = 0;
-		items.forEach((item) => (sum += item.item_value));
-		return sum.toFixed(2);
+		items.forEach((item) => {
+			sum += item.item_value;
+			console.log(sum);
+			setSumValue(sum.toFixed(2));
+		});
 	};
 
 	if (!isLoaded) {
 		return <CircularProgress />;
 	} else {
-		console.log(items);
 		return (
 			<div className="collection-detail" style={{ textAlign: 'center' }}>
 				<Button onClick={goHome}>Return To Hub</Button>
@@ -197,7 +215,7 @@ const CollectionDetail = () => {
 						Total Items: {items.length}
 					</Typography>
 					<Typography variant="subtitle1">
-						Total Value: ${sumItems(items)}
+						Total Value: {sumValue}
 					</Typography>
 				</div>
 
@@ -207,17 +225,17 @@ const CollectionDetail = () => {
 						alignItems: 'center',
 						display: 'flex',
 						flexWrap: 'wrap',
-						justifyContent: 'space-evenly'
+						justifyContent: 'space-evenly',
 					}}
 				>
 					{items.map((item) => {
-						console.log('Rendering items..........');
 						return (
 							<ItemCard
 								key={item.id}
 								item={item}
 								manage={manage}
 								deleteItem={deleteItem}
+								resetSumState={resetSumState}
 							/>
 						);
 					})}

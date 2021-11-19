@@ -4,7 +4,7 @@ import { borderRadius } from '@mui/system';
 
 import { useState } from 'react';
 
-const ItemCard = ({ item, manage, deleteItem }) => {
+const ItemCard = ({ item, manage, deleteItem, resetSumState }) => {
 	const [renderedItem, setRenderedItem] = useState(item);
 	const [edit, setEdit] = useState(false);
 	const [itemForm, setItemForm] = useState({
@@ -45,7 +45,10 @@ const ItemCard = ({ item, manage, deleteItem }) => {
 			}),
 		})
 			.then((r) => r.json())
-			.then((patchedItem) => setRenderedItem(patchedItem));
+			.then((patchedItem) => {
+				resetSumState();
+				setRenderedItem(patchedItem);
+			});
 	};
 
 	return (

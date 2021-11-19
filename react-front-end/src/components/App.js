@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Login from './Login';
 import SignUp from './SignUp';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import UserProfile from './UserProfile';
 import Footer from './Footer';
 
@@ -10,7 +10,7 @@ function App() {
 	const [loggingIn, setLoggingIn] = useState(true);
 	const [loggedIn, setLoggedIn] = useState(false);
 	// const [currentUser, setCurrentUser] = useState({});
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 	// const mockUser = {
 	// 	username: 'John',
 	// 	password: '1234',
@@ -39,38 +39,37 @@ function App() {
 	// };
 
 	const handleSignUp = (formData) => {
-		
-		const passedInUsername = formData.username.trim()
-		const passedInPassword = formData.password.trim()
-		
-		if(passedInUsername === '' || passedInPassword === '' ) {
-			alert("Please enter a valid username and password.")
+		const passedInUsername = formData.username.trim();
+		const passedInPassword = formData.password.trim();
+
+		if (passedInUsername === '' || passedInPassword === '') {
+			alert('Please enter a valid username and password.');
 		} else {
-			const newUser = formData
+			const newUser = formData;
 			const configObj = {
-				method: "POST",
+				method: 'POST',
 				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify( newUser ),
+				body: JSON.stringify(newUser),
 			};
 
 			fetch(`http://localhost:9292/user/new`, configObj)
 				.then((res) => res.json())
 				.catch((error) => console.log(error))
 				.then((data) => {
-					if(data === "User Exists") {
-						alert("Username is taken")
+					if (data === 'User Exists') {
+						alert('Username is taken');
 					} else {
 						// setCurrentUser(data)
-						UserProfile.setName(data.username)
-						setLoggedIn(true)
-						navigate('/home')
+						UserProfile.setName(data.username);
+						setLoggedIn(true);
+						navigate('/home');
 					}
-				})
+				});
 		}
-	}
+	};
 
 	const handleLoggingIn = () => {
 		// handles whether a user is logging in or signing up
@@ -80,23 +79,22 @@ function App() {
 	const handleLogin = (formData) => {
 		// fetch to database of users checking to see if
 		// user with given username exists, and if so check the passwords
-		const passedInUsername = formData.username.trim()
-		const passedInPassword = formData.password.trim()
-		
-		if(passedInUsername === '' || passedInPassword === '' ) {
-			alert("Please enter a valid username and password.")
+		const passedInUsername = formData.username.trim();
+		const passedInPassword = formData.password.trim();
+
+		if (passedInUsername === '' || passedInPassword === '') {
+			alert('Please enter a valid username and password.');
 		} else {
 			fetch(`http://localhost:9292/user/${passedInUsername}`)
-			.then((res) => res.json())
-			.then((data) => {
-				if(data === null) {
-					alert("Username or password is wrong.")
-				} else {
-					checkLogin(data, passedInUsername, passedInPassword)
-				}	
-			});
+				.then((res) => res.json())
+				.then((data) => {
+					if (data === null) {
+						alert('Username or password is wrong.');
+					} else {
+						checkLogin(data, passedInUsername, passedInPassword);
+					}
+				});
 		}
-		
 	};
 
 	// takes the data passed from the login form and fetches to the
@@ -108,14 +106,13 @@ function App() {
 			data.username === passedInUsername &&
 			data.password === passedInPassword
 		) {
-					UserProfile.setName(data.username)
-					setLoggedIn(true);
-					navigate('/home')
+			UserProfile.setName(data.username);
+			setLoggedIn(true);
+			navigate('/home');
 		} else {
 			alert('Wrong username or password.');
 		}
 	};
-
 
 	// conditionally rendered state controlled component
 	const loginForm = () =>
@@ -125,7 +122,7 @@ function App() {
 				handleLogin={handleLogin}
 			/>
 		) : (
-			<SignUp 
+			<SignUp
 				handleLoggingIn={handleLoggingIn}
 				handleSignUp={handleSignUp}
 			/>
