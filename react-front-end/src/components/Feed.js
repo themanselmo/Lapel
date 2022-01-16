@@ -9,7 +9,7 @@ const Feed = () => {
 	const [collections, setCollections] = useState([]);
 	const [search, setSearch] = useState('');
 	const [loaded, setLoaded] = useState(false);
-
+	const [inputDate, setInputData] = useState('');
 	useEffect(() => {
 		fetch(`http://localhost:9292/feed/${localStorage.getItem('username')}`)
 			.then((res) => res.json())
@@ -22,7 +22,7 @@ const Feed = () => {
 	useEffect(() => {
 		setTimeout(() => {
 			setLoaded(true);
-		}, 1500);
+		}, 500);
 	}, []);
 
 	const renderCards = (collectionsToRender) => {
@@ -38,9 +38,11 @@ const Feed = () => {
 			return collections;
 		} else {
 			console.log(search);
-			return collections.filter((c) =>
+
+			const filteredCollection = collections.filter((c) =>
 				c.collection_name.includes(search)
 			);
+			setCollections(filterCollection);
 		}
 	};
 
@@ -60,7 +62,10 @@ const Feed = () => {
 						style={{ textAlign: 'center', padding: '20px' }}
 					>
 						<form onSubmit={handleSearch}>
-							<input defaultValue=""></input>
+							<input
+								onChange={(e) => setInputData(e.target.value)}
+								defaultValue=""
+							></input>
 							<button>Search</button>
 						</form>
 					</div>
