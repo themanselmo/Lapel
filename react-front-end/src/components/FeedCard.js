@@ -9,7 +9,6 @@ const FeedCard = ({ collection }) => {
 		fetch(`http://localhost:9292/user/id/${collection.user_id}`)
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data);
 				setCardOwner(data);
 			});
 	});
