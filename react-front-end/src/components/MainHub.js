@@ -124,6 +124,18 @@ const MainHub = () => {
 								addNewCollection={addNewCollection}
 							/>
 						) : null}
+						{showForm ? null : collections.length < 1 ? (
+							<Typography
+								style={{
+									textAlign: 'center',
+									marginTop: '5vh',
+								}}
+								variant="h4"
+							>
+								You have no saved collections, create a new one!{' '}
+							</Typography>
+						) : null}
+						)}
 					</div>
 
 					<div

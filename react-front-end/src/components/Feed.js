@@ -34,7 +34,7 @@ const Feed = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		setSearch(inputData);
+		setSearch(inputData.toLowerCase());
 	};
 
 	return (
