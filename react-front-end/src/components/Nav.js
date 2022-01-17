@@ -17,6 +17,7 @@ const Nav = () => {
 			<Link to={`/`}>
 				<Button onClick={logOut}>Logout</Button>
 			</Link>
+			
 		</div>
 	);
 };

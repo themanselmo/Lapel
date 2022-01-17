@@ -14,12 +14,12 @@ clothes = Collection.create(collection_name: "Clothes", user_id: max.id)
 camera_gear = Collection.create(collection_name: "Camera Gear", user_id: max.id)
 bike_stuff = Collection.create(collection_name: "Bike Gear", user_id: sam.id)
 
-200.times do
+100.times do
     Collection.create(collection_name: Faker::Commerce.department, user_id: User.all.sample.id)    
 end
 
 
-1000.times do
+500.times do
     sample_id = Collection.all.sample.id
     Item.create(
         item_name: Faker::Appliance.equipment,

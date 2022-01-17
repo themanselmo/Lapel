@@ -1,7 +1,7 @@
 import { CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import FeedCard from './FeedCard';
-import Footer from './Footer';
+
 import Nav from './Nav';
 
 const Feed = () => {
@@ -9,12 +9,11 @@ const Feed = () => {
 	const [collections, setCollections] = useState([]);
 	const [search, setSearch] = useState('');
 	const [loaded, setLoaded] = useState(false);
-	const [inputDate, setInputData] = useState('');
+	const [inputData, setInputData] = useState('');
 	useEffect(() => {
 		fetch(`http://localhost:9292/feed/${localStorage.getItem('username')}`)
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data);
 				setCollections(data);
 			});
 	}, []);
@@ -25,31 +24,17 @@ const Feed = () => {
 		}, 500);
 	}, []);
 
-	const renderCards = (collectionsToRender) => {
-		return collectionsToRender.map((c) => {
-			return <FeedCard collection={c} />;
-		});
-	};
+	let filteredCollection = collections.filter((c) => {
+		return c.collection_name.toLowerCase().includes(search);
+	});
 
-	const filterCollection = () => {
-		console.log(search);
-		if (search === '') {
-			console.log('returning collections unedited!');
-			return collections;
-		} else {
-			console.log(search);
+	const renderCards = filteredCollection.map((c) => {
+		return <FeedCard collection={c} />;
+	});
 
-			const filteredCollection = collections.filter((c) =>
-				c.collection_name.includes(search)
-			);
-			setCollections(filterCollection);
-		}
-	};
-
-	const handleSearch = (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(e);
-		setSearch(e.target[0].value);
+		setSearch(inputData);
 	};
 
 	return (
@@ -61,9 +46,14 @@ const Feed = () => {
 						id="feed-form"
 						style={{ textAlign: 'center', padding: '20px' }}
 					>
-						<form onSubmit={handleSearch}>
+						<form onSubmit={(e) => handleSubmit(e)}>
 							<input
-								onChange={(e) => setInputData(e.target.value)}
+								onChange={(e) => {
+									if (e.target.value === '') {
+										setSearch('');
+									}
+									setInputData(e.target.value);
+								}}
 								defaultValue=""
 							></input>
 							<button>Search</button>
@@ -78,7 +68,7 @@ const Feed = () => {
 							padding: '20px',
 						}}
 					>
-						{renderCards(filterCollection())}
+						{renderCards}
 					</div>
 				</div>
 			) : (
